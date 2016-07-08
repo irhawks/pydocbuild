@@ -1,0 +1,217 @@
+% WORKAROUND (an update of the geometry package broke beamer...)
+\makeatletter\let\ifGm@compatii\relax\makeatother
+% end of WORKAROUND
+
+
+\documentclass{beamer}
+% \usetheme[uttitlepage=false]{ut}
+% \usetheme[euler=false,titlepagebg=B]{ut}
+% \usetheme[titlepage=C,debug]{ut}
+% \usetheme[titlepage=A]{ut}
+\usetheme{ut}
+
+
+\title[UT Beamer]{An Introduction to the UT\\ Beamer Theme}
+% \subtitle[Short subtitle]{I am not using any subtitles}
+\author[J.~Goseling]{Jasper Goseling } %  
+\institute[UT-EWI-SOR]{Stochastic Operations Research Group,\\ University of Twente}
+\date[16-09-2011]{September 16, 2011}
+\footlinetext{[ J.~Goseling ]}
+% \titlegraphic{\includegraphics[height=1cm]{titlegraphic}}
+
+% \utbeamerset{tpboxbx=10}
+
+
+\begin{document}
+
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%
+%%%%%
+%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame} \frametitle{Installation}
+Make sure that the following files are available to tex
+\begin{itemize}
+\item beamerthemeut.sty
+\item beamerthemeutresources.pdf
+\end{itemize}
+(One way to make them available to tex is to put them in a directory together with your tex file.)
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%
+%%%%%
+%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile] \frametitle{A Minimal Example}
+{\tiny
+\begin{semiverbatim}
+\\documentclass\{beamer\}
+\\usetheme\{ut\}
+
+\\title[UT Beamer]\{A UT Beamer Theme\}
+\\author[J.~Goseling]\{Jasper Goseling\}
+\\institute[UT-EWI-SOR]\{Stochastic Operations Research
+  Group,\\\\ University of Twente\}
+\\date[12-05-2011]\{May 12, 2011\}
+
+\\begin\{document\}
+
+\\maketitle
+
+\\begin\{frame\}\\frametitle\{Title\}
+Content.
+\\end\{frame\}
+
+\\end\{document\}
+\end{semiverbatim}
+}
+
+Compile with xelatex or pdflatex. If compiled with xelatex (recommended) the Arial Narrow truetype/opentype font needs to be available.
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%
+%%%%%
+%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile] \frametitle{Style Options}
+\begin{itemize}
+\item uttitlepage=[true,false], default true: If false, use the default Beamer title page
+\item titlepage=[A,B,C,D], default A: Select a title page layout, in particular background graphics
+\item euler=[true,false], default true: Selects Euler as the math font
+\item debug, not enabled by default: Draws boxes on the title page to facilitate layout
+\end{itemize}
+
+Example: \verb!\usetheme[titlepage=B,euler=false,debug]{ut}!
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%
+%%%%%
+%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile] \frametitle{\textbackslash utbeamerset}
+The command \verb!\utbeamerset! can be used to set additional options in the theme. Currently
+only the layout of the title page can be adjusted. The command can be issued in the preamble as:
+{\tiny
+\begin{semiverbatim}
+\\utbeamerset\{optiona=valuea, optionb=valueb, optionc=valuec\}
+\end{semiverbatim}
+}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%
+%%%%%
+%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile] \frametitle{Layout of the Title Page}
+\begin{itemize}
+\item The title page consists of three boxes, A, B and C. Box A contains the title and subtitle. Box B contains the author names, affiliations and date. Box C contains the titlegraphic. The boxes are positioned absolutely on the page. The position and the size of the boxes can be adjusted with the \verb!\utbeamerset! command. Box A has top left coordinate (\verb!tpboxax!,\verb!tpboxay!), width \verb!tpboxawd! and height \verb!tpboxaht!. All sizes and positions are in mm.
+
+\item Overview of all options that can be used in \verb!\utbeamerset!:
+tpboxax, tpboxay, tpboxawd, tpboxaht, tpboxbx, tpboxby, tpboxbwd, tpboxbht, tpboxcx, tpboxcy, tpboxcwd, tpboxcht.
+
+\item By default the boxes themselves are not visible. By using the option \verb!debug (\usetheme[debug]{ut})! the boxes are visible, faciliting the layout.
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%
+%%%%%
+%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame} \frametitle{Fonts}
+Use xelatex to get Arial fonts.
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%
+%%%%%
+%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame} \frametitle{Feedback}
+Feedback is greatly appreciated. \\
+
+Jasper Goseling (j.goseling@utwente.nl)
+\end{frame}
+
+\appendix
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%
+%%%%%
+%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{chapterframe}
+\Large Introduction to the Next Part
+\end{chapterframe}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%
+%%%%%
+%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame} \frametitle{A Normal Frame}
+A list
+\begin{itemize}
+\item First item
+\item Second item
+\end{itemize}
+
+\begin{block}{A Block}
+Content of the block.
+\end{block}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%
+%%%%%
+%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame} \frametitle{Testing the Math Font}
+\begin{equation*}
+\alpha, \beta, \gamma, 1, 2, 3, \int_a^b f(x)dx, \sum_{i=1}^N, \mathbb{E}[X].
+\end{equation*}
+\end{frame}
+
+
+
+
+\end{document}
+
