@@ -1,0 +1,50 @@
+\documentclass[a5paper,landscape,14pt]{ctexart}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{calc}
+
+\usepackage{tikz}
+\usetikzlibrary{shadows,shapes}
+\usepackage{pgfgantt}
+
+
+\begin{document}
+
+\pagestyle{empty}
+
+\ganttset{calendar week text={
+    \pgfcalendarmonthshortname{\startmonth}~~\startyear,  Week \currentweek
+}}
+
+\begin{center}
+\begin{ganttchart}[
+hgrid,
+vgrid,
+x unit=0.033\textwidth,
+y unit chart=6mm,
+y unit title=6mm,
+time slot format=isodate,
+%title/.append style={draw=none, inner color=red, fill=blue!20, rounded corners=2mm, drop shadow}
+title/.append style={draw=black!50,inner color=black!10, fill=blue!20, drop shadow},
+canvas/.style={shape=chamfered rectangle, draw=black!60,dash dot,very thick}
+]{2016-09-01}{2016-09-30}
+\gantttitlecalendar{week, day, weekday} \\
+
+\ganttbar{}{2016-09-01}{2016-09-01}\\
+\ganttbar{}{2016-09-01}{2016-09-01}\\
+\ganttbar{}{2016-09-01}{2016-09-01}\\
+\ganttbar{}{2016-09-01}{2016-09-01}\\
+\ganttbar{}{2016-09-01}{2016-09-01}\\
+\ganttbar{}{2016-09-01}{2016-09-01}\\
+\ganttbar{}{2016-09-01}{2016-09-01}\\
+\ganttbar{}{2016-09-01}{2016-09-01}\\
+\ganttbar{}{2016-09-01}{2016-09-01}\\
+\ganttbar{}{2016-09-01}{2016-09-01}\\
+\ganttbar{}{2016-09-01}{2016-09-01}\\
+\ganttbar{}{2016-09-01}{2016-09-01}\\
+\ganttbar{}{2016-09-01}{2016-09-01}\\
+\ganttbar{}{2016-09-01}{2016-09-01}\\
+\ganttbar{}{2016-09-01}{2016-09-01}\\
+\end{ganttchart}
+\end{center}
+
+\end{document}
