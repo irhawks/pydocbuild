@@ -1,10 +1,12 @@
-\documentclass[a5paper,landscape,14pt]{ctexart}
+\documentclass[a4paper,landscape,14pt]{ctexart}
 \usepackage[margin=0.5in,top=1in,bottom=0.05in]{geometry}
 \usepackage{calc}
 
 \usepackage{tikz}
 \usetikzlibrary{shadows,shapes}
 \usepackage{pgfgantt}
+
+\usepackage{pgffor}
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -22,22 +24,23 @@
 
 \begin{document}
 
-\thispagestyle{empty}
-\maketitle
+%\thispagestyle{empty}
+%\maketitle
 
 
 \ganttset{calendar week text={
     \pgfcalendarmonthshortname{\startmonth}~~\startyear,  Week \currentweek
 }}
 
-\def\makegantt#1#2{
+%%% 注意Week的数字表示当中，0表示星期一，1表示星期二，所以我们使用缩写名。
+\def\makegantt#1#2#3{
 \begin{center}
 \begin{ganttchart}[
 %hgrid,
 %vgrid,
 hgrid={*1{draw=black!80},*4{draw=black!40,dashed}},
 vgrid={*{6}{black!40, dotted},*1{black!80}},
-x unit=0.0355\textwidth,
+x unit=0.0238\textwidth,
 y unit chart=6mm,
 y unit title=5mm,
 time slot format=isodate,
@@ -47,24 +50,9 @@ title/.append style={draw=black!50,inner color=black!10, fill=blue!20, drop shad
 canvas/.style={shape=chamfered rectangle, draw=black!60,dash dot,very thick}
 ]{#1}{#2}
 %\gantttitle{2016年9月}{30}\\
-\gantttitlecalendar{week, day, weekday} \\
-\ganttbar{}{#1}{#2}\\
-\ganttbar{}{#1}{#2}\\
-\ganttbar{}{#1}{#2}\\
-\ganttbar{}{#1}{#2}\\
-\ganttbar{}{#1}{#2}\\
-\ganttbar{}{#1}{#2}\\
-\ganttbar{}{#1}{#2}\\
-\ganttbar{}{#1}{#2}\\
-\ganttbar{}{#1}{#2}\\
-\ganttbar{}{#1}{#2}\\
-\ganttbar{}{#1}{#2}\\
-\ganttbar{}{#1}{#2}\\
-\ganttbar{}{#1}{#2}\\
-\ganttbar{}{#1}{#2}\\
-\ganttbar{}{#1}{#2}\\
-\ganttbar{}{#1}{#2}\\
-\ganttbar{}{#1}{#2}
+\gantttitlecalendar{week, day, weekday=shortname} \\
+    \foreach \n in {2,3,...,#3}{\ganttbar{}{#1}{#2}\\}
+    \ganttbar{}{#1}{#2}
 \end{ganttchart}
 \end{center}
 }
@@ -75,23 +63,24 @@ canvas/.style={shape=chamfered rectangle, draw=black!60,dash dot,very thick}
 
 \def\makegantts#1#2{
 %\makegantt{#1}{#2}
-\makegantt{#1}{#2}}
+    \makegantt{#1}{#2}{27}}
 
-\makegantts{2016-08-29}{2016-09-25}
-\makegantts{2016-09-26}{2016-10-23}
-\makegantts{2016-10-24}{2016-11-20}
-\makegantts{2016-11-21}{2016-12-18}
-\makegantts{2016-12-19}{2017-01-15}
-
-\makegantts{2017-01-16}{2017-02-12}
-\makegantts{2017-02-13}{2017-03-12}
-\makegantts{2017-03-13}{2017-04-09}
-\makegantts{2017-04-10}{2017-05-07}
-\makegantts{2017-05-08}{2017-06-04}
-\makegantts{2017-05-08}{2017-06-04}
-\makegantts{2017-06-05}{2017-07-02}
-
-\makegantts{2017-07-03}{2017-07-30}
-\makegantts{2017-07-31}{2017-08-27}
+\makegantts{2016-09-12}{2016-10-23}
+%\makegantts{2016-08-29}{2016-09-25}
+%\makegantts{2016-09-26}{2016-10-23}
+%\makegantts{2016-10-24}{2016-11-20}
+%\makegantts{2016-11-21}{2016-12-18}
+%\makegantts{2016-12-19}{2017-01-15}
+%
+%\makegantts{2017-01-16}{2017-02-12}
+%\makegantts{2017-02-13}{2017-03-12}
+%\makegantts{2017-03-13}{2017-04-09}
+%\makegantts{2017-04-10}{2017-05-07}
+%\makegantts{2017-05-08}{2017-06-04}
+%\makegantts{2017-05-08}{2017-06-04}
+%\makegantts{2017-06-05}{2017-07-02}
+%
+%\makegantts{2017-07-03}{2017-07-30}
+%\makegantts{2017-07-31}{2017-08-27}
 
 \end{document}
