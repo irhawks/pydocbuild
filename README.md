@@ -13,4 +13,4 @@
 <https://www.thebalance.com/how-to-request-a-transcript-for-a-job-application-2062973>介绍了Official Transcripts，也就是标准的成绩单。
 
 
-<http://www.wikihow.com/Write-a-Letter-of-Recommendation>上面介绍了推荐信的各种写法。比如使用热情的术语。
+<http://www.wikihow.com/Write-a-Letter-of-Recommendation>上面介绍了推荐信的各种写法。比如使用热情的术语。<http://www.theatlantic.com/education/archive/2014/02/the-art-of-the-college-recommendation-letter/284019/>还介绍了The Art of Recommendation Letter.
