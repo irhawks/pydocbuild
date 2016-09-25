@@ -1,0 +1,59 @@
+\ProvidesFile{standard.lco}[%
+   2002/07/09 v0.9a LaTeX2e unsupported letter-class-option]
+  
+ \usepackage[english]{babel}
+ \usepackage{fontspec}
+ \usepackage{fix-cm} 
+ \usepackage{marvosym}
+\usepackage{eso-pic}
+  
+ % ==============================================
+ %  PERSONAL DATA
+ % ==============================================
+ \setkomavar{fromname}{Will McFadden}
+ \setkomavar{fromaddress}{221B Baker St.\\London\\United Kingdom}
+ \setkomavar{fromphone}{(888)-555-8585}
+ \setkomavar{fromemail}{will@makeloft.org}
+ \setkomavar{fromurl}{http://hellowill.makeloft.org}
+ \setkomavar{place}{London}
+ \setkomavar{signature}{Will McFadden}
+  
+ % ==============================================
+ %  FORMATTING STUFF
+ % ==============================================
+  
+ % === font settings
+ \defaultfontfeatures{Mapping=tex-text}
+ \setmainfont {Adobe Garamond Pro}
+ 
+ %set the font size and leading
+ \renewcommand{\normalsize}{\fontsize{11}{16}\selectfont} 
+ 
+\setkomavar{firsthead}{
+        \centering
+          {\addfontfeature{LetterSpace=15.0}\fontsize{36}{36}\selectfont\scshape \usekomavar{fromname}}\\[5mm]
+          \fontsize{21}{21}\selectfont\scshape Computational Modeling and Data Analysis
+ }
+ 
+\setkomavar{firstfoot}{
+    \centering
+    \addfontfeature{LetterSpace=20.0}\scshape
+     {\renewcommand{\\}{\ {\large\textperiodcentered}\ }
+     \usekomavar{fromaddress}}\\
+     {\Large\Letter} \usekomavar{fromemail} \ {\Large\Telefon} \usekomavar{fromphone}
+ }
+
+\newcommand\BackgroundPicture{
+    \put(0,0){
+      \parbox[b][\paperheight]{\paperwidth}{
+        \vfill
+        \centering
+        \includegraphics[width=1\paperwidth,height=1\paperheight,%
+                         keepaspectratio]{watermark.eps}%
+        \vfill
+      }}}
+ 
+ % the picture is centered on the page background
+ \AddToShipoutPicture{\BackgroundPicture}
+  
+ \endinput
