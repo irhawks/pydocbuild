@@ -34,3 +34,5 @@ night        21:00 23:59 supper           Good evening
 mid-night    24:00  1:00                  Good evening
 
 
+
+<http://stackoverflow.com/questions/217834/how-to-create-a-timeline-with-latex>上面有一篇介绍如何在LaTeX当中画时间线的说明。
