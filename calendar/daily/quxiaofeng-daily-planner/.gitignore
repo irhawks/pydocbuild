@@ -1,0 +1,13 @@
+# ignore latex compiling files
+*.aux
+*.log
+*.synctex.gz
+*.toc
+# ignore vim temp files
+*~
+# add generated pdf files as examples
+*.pdf
+# README.md test output
+README.html
+# temp file
+*.swp

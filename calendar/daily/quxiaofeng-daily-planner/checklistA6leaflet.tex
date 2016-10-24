@@ -1,0 +1,108 @@
+\documentclass{article}
+% by qu xiaofeng
+% October 4, 2011
+
+\usepackage[paperwidth=105mm, paperheight=148mm]{geometry}
+
+\usepackage{stmaryrd}
+
+\hoffset=-1mm
+\voffset=-3mm
+\oddsidemargin=0mm
+\evensidemargin=0mm
+\textwidth=75mm
+\topmargin=-30mm
+\textheight=140mm
+\parindent=10mm
+
+\pagestyle{empty}
+
+\usepackage[weather]{ifsym}
+
+\usepackage{pgfpages}
+\pgfpagesuselayout{4 on 1}[a4paper, border shrink=0mm]
+
+\begin{document}
+
+% DEFINITIONS ***************************************************
+
+
+\def \blank  {\small \phantom{x}}
+\def \PlaceHolder {\small $\;$ }
+\def \blankrow {{\bf \small  \phantom{xxxx}}%
+&{\bf \small \phantom{xxxxxxxxxxxxxxxxxxxxxx}}%
+&{\bf \small \phantom{x}}}
+
+\newcommand{\checkitem}[2]{
+    {\bf \small {#1}} &{\small {#2}}	& {\small $\boxempty$} 
+}
+
+\newcommand{\checklist}[2]{
+% MAKE CHECK LIST ***********************************************
+\begin{table}[ht!]
+
+{\bf Reflection Checklist {#1}}
+{\bf \phantom{x}{#2}\,}\\
+
+\centering
+\begin{tabular}{rlr}
+% Table  ********************************************************
+
+\hline
+\blankrow\\
+\checkitem{Books}{Important?} \\
+\checkitem{\blank }{Urgent?} \\
+\checkitem{\blank }{Skim through before reading} \\
+
+\checkitem{Tasks}{Important?} \\
+\checkitem{\blank }{Urgent?} \\
+\checkitem{\blank }{Can be assigned to others?} \\
+\checkitem{\blank }{Plan before doing	} \\
+\checkitem{\blank }{Finish one at a time} \\
+\checkitem{\blank }{Assign others to remind} \\
+\checkitem{\blank }{Keep task list short} \\
+
+\checkitem{Websites}{Relevent?} \\
+\checkitem{\blank }{Print out} \\
+
+\checkitem{Papers}{Print large} \\
+\checkitem{\blank }{Read with color-notes} \\
+\checkitem{\blank }{Bind into volumns} \\
+
+\checkitem{Codes}{Manage with Git} \\
+\checkitem{\blank }{Generate UML for check} \\
+
+\checkitem{Plan}{Detailed to every hour} \\
+\checkitem{\blank }{Including breaks} \\
+\checkitem{\blank }{Reserve time for thinking} \\
+
+\checkitem{Emotions}{Progress takes time} \\
+\checkitem{\blank }{Ignore others' infuences} \\
+\checkitem{\blank }{Concentrate to my own tasks} \\
+\checkitem{\blank }{Step by step} \\
+\checkitem{\blank }{Reassure ``on the right track''} \\
+
+\blankrow\\
+\hline
+
+\end{tabular}
+\end{table}
+}
+
+\checklist{May 4, 2012}{}
+\clearpage
+\checklist{May 5, 2012}{}
+\clearpage
+\checklist{May 6, 2012}{}
+\clearpage
+\checklist{May 7, 2012}{}
+\clearpage
+\checklist{May 8, 2012}{}
+\clearpage
+\checklist{May 9, 2012}{}
+\clearpage
+\checklist{May 10, 2012}{}
+\clearpage
+\checklist{May 11, 2012}{}
+\clearpage
+\end{document}

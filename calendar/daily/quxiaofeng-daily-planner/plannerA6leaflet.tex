@@ -1,0 +1,120 @@
+\documentclass{article}
+% by qu xiaofeng
+% October 4, 2011
+
+\usepackage[paperwidth=95mm, paperheight=160mm]{geometry}
+
+\usepackage{stmaryrd}
+
+\hoffset=-12mm%TODO: maybe a little more right if possible
+\voffset=-1mm
+\oddsidemargin=0mm
+\evensidemargin=-20mm
+\textwidth=75mm
+\topmargin=-30mm
+\textheight=140mm
+\parindent=10mm
+
+\pagestyle{empty}
+
+\usepackage[weather]{ifsym}
+
+\usepackage{pgfpages}
+\pgfpagesuselayout{4 on 1}[a4paper, border shrink=0mm]
+
+\begin{document}
+
+% DEFINITIONS ***************************************************
+
+
+\def \blank  {\phantom{x}}
+
+\def \placeholder {$\;$ }
+
+\def \blankrow {{\bf \small \phantom{xxx}}%
+&{\bf \small \phantom{xxxxxxxxxxxx}}%
+&{\bf \small \phantom{xxxxxxxxxxxx}}%
+&{\bf \small \phantom{xxxxx}}}
+
+\def \headingline {{\bf \small Time}%
+&{\bf \small Schedule}%
+&{\bf \small Activity}%
+&{\bf \small Check}}
+
+\def \evaluate {\bf \phantom{}$\boxempty$\phantom{}}
+
+\newcommand{\planitem}[1]{
+{\bf \small{#1}} & {\placeholder} & {\placeholder} & \evaluate
+}
+
+\newcommand{\checklist}[2]{
+% MAKE CHECK LIST ***********************************************
+\begin{table}[ht!]
+
+{\bf \Large {WORK PLAN #1}}
+{\bf \phantom{x}{#2}\,}
+
+\centering
+\begin{tabular}{rccr}
+\blankrow\\
+\headingline\\
+\hline
+
+% Table  ********************************************************
+
+\planitem{ 0:00}\\ \hline
+\planitem{ 1:00}\\ \hline
+\planitem{ 2:00}\\ \hline
+\planitem{ 3:00}\\ \hline
+\planitem{ 4:00}\\ \hline
+\planitem{ 5:00}\\ \hline
+\planitem{ 6:00}\\ \hline
+\planitem{ 7:00}\\ \hline
+\planitem{ 8:00}\\ \hline
+\planitem{ 9:00}\\ \hline
+\planitem{10:00}\\ \hline
+\planitem{11:00}\\ \hline
+\planitem{12:00}\\ \hline
+\planitem{13:00}\\ \hline
+\planitem{14:00}\\ \hline
+\planitem{15:00}\\ \hline
+\planitem{16:00}\\ \hline
+\planitem{17:00}\\ \hline
+\planitem{18:00}\\ \hline
+\planitem{19:00}\\ \hline
+\planitem{20:00}\\ \hline
+\planitem{21:00}\\ \hline
+\planitem{22:00}\\ \hline
+\planitem{23:00}\\ \hline
+\planitem{24:00}\\ \hline
+\blankrow\\
+
+{\bf  Memo} & {\placeholder} & {\placeholder} & {\placeholder} \\ \hline
+\blankrow\\
+\blankrow\\
+\blankrow\\
+\hline
+\end{tabular}
+\end{table}
+}
+
+
+\checklist{\underline{\makebox[3.77cm][l]{}}}{}
+\clearpage
+\checklist{\underline{\makebox[3.77cm][l]{}}}{}
+\clearpage
+\checklist{\underline{\makebox[3.77cm][l]{}}}{}
+\clearpage
+\checklist{\underline{\makebox[3.77cm][l]{}}}{}
+\clearpage
+\checklist{\underline{\makebox[3.77cm][l]{}}}{}
+\clearpage
+\checklist{\underline{\makebox[3.77cm][l]{}}}{}
+\clearpage
+\checklist{\underline{\makebox[3.77cm][l]{}}}{}
+\clearpage
+\checklist{\underline{\makebox[3.77cm][l]{}}}{}
+\clearpage
+
+
+\end{document}
