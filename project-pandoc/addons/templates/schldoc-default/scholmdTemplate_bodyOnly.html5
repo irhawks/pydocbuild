@@ -1,0 +1,86 @@
+$if(quotes)$
+<style type="text/css">q { quotes: "“" "”" "‘" "’"; }</style>
+$endif$
+$for(include-before)$
+$include-before$
+$endfor$
+$if(math-macros)$
+<div class="math scholmd-math-definitions" style="visibility: hidden; height: 0px; width 0px;">\[
+$math-macros$
+\]</div>
+$endif$
+$if(title)$
+<header>
+$if(subtitle)$
+<hgroup class="scholmd-title-group">
+<h1 class="scholmd-title">$title$</h1>
+<h1 class="scholmd-subtitle">$subtitle$</h1>
+</hgroup>
+$else$
+<h1 class="scholmd-title">$title$</h1>
+$endif$
+$for(author)$
+<div class="scholmd-author">
+$if(author.name)$
+<div class="scholmd-author-name">$author.name$</div>
+$if(author.affiliation)$
+<div class="scholmd-author-affiliation">$author.affiliation$</div>
+$endif$
+$else$
+$author$
+$endif$
+</div>
+$endfor$
+$if(date)$
+<div class="scholmd-date">$date$</div>
+$endif$
+</header>
+$endif$
+$if(abstract)$
+<div class="scholmd-abstract">
+$if(abstract-title)$
+<h2 class="scholmd-abstract-title">$abstract-title$</h2>
+$endif$
+$abstract$
+</div>
+$endif$
+$if(toc)$
+<nav id="$idprefix$TOC">
+$toc$
+</nav>
+$endif$
+$body$
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+      processClass: "math"
+    },
+    TeX: {
+        TagSide: "left",
+        TagIndent: "1.2em",
+        equationNumbers: {
+            autoNumber: "AMS"
+        },
+        Macros: {
+            ensuremath: ["#1",1],
+            textsf: ["\\mathsf{\\text{#1}}",1],
+            texttt: ["\\mathtt{\\text{#1}}",1]
+        }
+    },
+    "HTML-CSS": { 
+        scale: 100,
+        availableFonts: ["TeX"], 
+        preferredFont: "TeX",
+        webFont: "TeX",
+        imageFont: "TeX",
+        EqnChunk: 1000
+    }
+});
+</script>
+$for(include-after)$
+$include-after$
+$endfor$
+$if(math)$
+$math$
+$endif$

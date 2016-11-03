@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="任呈祥" />
+  <title>测试标题</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+</head>
+<body>
+<div id="header">
+<h1 class="title">测试标题</h1>
+<h2 class="author">任呈祥</h2>
+<h3 class="date">January 2014</h3>
+</div>
+<div id="TOC">
+true
+</div>
+<h1 id="introduction">Introduction</h1>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua <span class="citation">[@menni2002topological]</span>. Notice that citation there <span class="citation">[@Hu1984bourbaki]</span>. Ut enimad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<h1 id="theory">Theory</h1>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enimad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enimad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enimad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>Right now, your options for formatting bibliographies using Pandoc are to offload the work to biblatex (or natbib), or have pandoc handle everything via <code>citeproc</code> and CSL files. The latter way is simpler and cleaner, especially if we want to preserve the ability to easily generate both HTML and LaTeX/PDF outputs. You have to do two things. First, explicitly specify the “References” header. Second, pandoc does not (yet) support some standard layout options for bibliography entries—it will treat each entry like a regular paragraph, when we want the first lines of each bibliography entry to have no indentation, with subsequent lines (if any) to hang in from the margin. The LaTeX commands below the “References” header accomplish this . The LaTeX commands are ignored when HTML is produced, and do not show up in the output file.</p>
+<h1 id="references">References</h1>
+<p>    </p>
+<p>Use this</p>
+<pre><code>X:7
+T:Qui Tolis (Trio)
+C:André Raison
+M:3/4
+L:1/4
+Q:1/4=92
+%%staves {(Pos1 Pos2) Trompette}   
+K:F
+%  
+V:Pos1
+%%MIDI program 78
+&quot;Positif&quot;x3  |x3    |c&#39;&gt;ba|Pga/g/f|:g2a  |ba2    |g2c- |c2P=B  |c&gt;de  |fga    |
+V:Pos2
+%%MIDI program 78
+        Mf&gt;ed|cd/c/B|PA2d |ef/e/d |:e2f  |ef2    |c&gt;BA |GA/G/F |E&gt;FG  |ABc-   |
+V:Trompette
+%%MIDI program 56
+&quot;Trompette&quot;z3|z3    |z3   |z3     |:Mc&gt;BA|PGA/G/F|PE&gt;EF|PEF/E/D|C&gt;CPB,|A,G,F,-|</code></pre>
+<p>to get</p>
+<p><img src="../abc-images/d0fafff6e3eb537341f5d5eea7c29e2bc41ccc38.png" /></p>
+<p>lambda 2:</p>
+<p><img src="../abc-images/60a0ca71335f79026e9bea175f1a09b2361f4748.png" /></p>
+<p>Use this</p>
+<pre><code>digraph G {Hello-&gt;World}</code></pre>
+<p>to get</p>
+<pre class="graphviz"><code>digraph G {Hello-&gt;World}</code></pre>
+<p>with with Äüö</p>
+<pre class="graphviz"><code>digraph G {Hello-&gt;World with Äüö}</code></pre>
+<p>Use this</p>
+<pre class="sourceCode latex"><code class="sourceCode latex">\begin{tikzpicture}
+
+\def \n {5}
+\def \radius {3cm}
+\def \margin {8} <span class="co">% margin in angles, depends on the radius</span>
+
+\foreach \s in {1,...,\n}
+{
+  \node[draw, circle] at ({360/\n * (\s - 1)}:\radius) {$\s$};
+  \draw[-&gt;, &gt;=latex] ({360/\n * (\s - 1)+\margin}:\radius) 
+    arc ({360/\n * (\s - 1)+\margin}:{360/\n * (\s)-\margin}:\radius);
+}
+\end{tikzpicture}</code></pre>
+<p>to get</p>
+<p><img src="../tikz-images/bb4ca6ef38e388bee5236368e2ae316cc8af1ed4.png" /></p>
+</body>
+</html>

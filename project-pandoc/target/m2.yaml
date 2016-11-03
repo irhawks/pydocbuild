@@ -1,0 +1,12 @@
+---
+author: 
+    - 作者1
+    - 作者2
+title: 标题
+biblio-files: ['addons/bib/myrefs.bib']
+toc : true
+toc-depth: 2
+pandocargs: [
+    "--filter", '../addons/filters/abc.py'
+]
+...
