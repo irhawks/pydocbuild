@@ -24,3 +24,26 @@ Metadata.yaml的配置可以参考 http://blog.martinfenner.org/2013/06/29/metad
 * 采用工程化的管理的时候，可以考虑把filters, csl, templates都放在一个子目录里面。这样会便于管理一些。
 * 可在pandoc官方文档的Demo中找到一些有意义的例子。比如example9。
 * pandoc一次可以编译多个文档。但是其中有一个是主要的，而且也包含yaml配置。
+
+
+## 理想情况下的Pandoc编译
+
+如下的例子：
+
+    ```{.js .nwcode title="主文件的结构"}
+
+    ```
+
+其中.noweb和.js表明了这是接受nwcode(noweb的编译说明)的一种结构。title表明了主文件的结构。也就是相当于起到了定义Chunk的作用。但是我们知道，noweb是可以附加定义的，也就是利用它需要变换成LaTeX当中的特定的结构``<<title>>=``。也就是返回的.nw文件当中必须有它们。
+
+自己搜索pandoc literate programming的时候，发现还是有一些预处理器可以做这些工具的。比如pandoc-lit只能处理literate haskell的格式<https://github.com/Toxaris/pandoc-lit>。也可以参考<http://members.shaw.ca/akochoi/articles/haskell-literate-programming-pandoc-carbon-xemacs/index.html>。再比如说，PP，它是一个pandoc的预处理器。<https://github.com/CDSoft/pp>可以阻止直接从pandoc生成文档，而首先进行一些预处理的工作。
+
+    ```{.python execute=yes}
+
+    ```
+
+再比如spiralweb<https://github.com/michaeljmcd/spiralweb>系统。
+
+其实文学编程是很简单的事情，只要从文章当中抽出来块名称和块定义就可以了。当然，块名称可以有许多个，块定义也可以有许多个。在块定义当中，应该能够智能地分辨出来哪些是代码，哪些是插入块的标记。于是本质上，还是需要我们能够根据块，推导块与块之间的依赖关系。本质上就是程序理解。比如一个函数调用了另一个函数，比如一个定义使用了另一个定义。深入理解程序之间的依赖关系是非常难的，因为需要深入到程序的数据结构当中。
+
+Markdoc也是一个关于文学编程的工具，支持非常多的格式<http://markdoc.org/>。以及<https://github.com/haghish/MarkDoc>。但是需要配合Stata使用。
