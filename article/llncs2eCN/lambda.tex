@@ -1,0 +1,78 @@
+\documentclass{llncs}
+\usepackage[colorlinks]{hyperref}
+\usepackage[fontset=adobe]{ctex}
+\usepackage{makeidx}  % allows for indexgeneration
+\usepackage[a4paper,margin=1in]{geometry}
+
+\usepackage{bbding}
+
+\usepackage[backend=biber,doi=false,natbib]{biblatex}
+\addbibresource{myrefs.bib}
+\addbibresource{myview.bib}
+
+\usepackage{listings}
+
+\usepackage{tabu}
+\usepackage{multirow}
+
+\begin{document}
+
+\pagestyle{headings}
+
+\mainmatter              % start of the contributions
+%
+\title{基于$\lambda$-架构的按需流处理}
+%
+\titlerunning{$\lambda$-架构的按需流处理}  
+% abbreviated title (for running head)
+%                                     also used for the TOC unless
+%                                     \toctitle is used
+%
+\author{Johannes Kro{\ss}\inst{1}\Envelope
+    \and Andreas Brundnert\inst{1}
+    \and Christian Prehofer\inst{1} 
+    \and Thomas~A.~Runkler\inst{2}
+    \and Helmut~Krcmar\inst{3}
+}
+%
+\authorrunning{Johannes Kro{\ss} et al.} % abbreviated author list (for running head)
+%
+%%%% list of authors for the TOC (use if author list has to be modified)
+\tocauthor{Johannes Kro{\ss},Andreas Brundnert,Christian Prehofer,
+Thomas A.~Runkler,Helmut Krcmar}
+%
+\institute{
+    fortiss GmbH, Guerickestr. 25, 80805 Munich, Germany\\
+    \email{\{kross,brunnert,prehofer\}@fortiss.org}
+\and
+Siemens AG, Corporate Technology, Otto-Hahn-Ring 6, 81739 Munich, Germany\\
+\email{thomas.runkler@siemens.com}
+\and
+Technische Universit\"at M\"unchen, Boltzmannnstr. 3, 85748 Garching, Germany\\
+\email{krcmar@in.tum.de}}
+
+\maketitle              % typeset the title of the contribution
+
+\begin{abstract}
+在数据量的增加和及时地处理这些数据的需求的增长的背景下，人们开发出了许多的大数据系统。应用被称为$\lambda$-架构的设计原则去设计大数据系统，可以在目标系统中实现较低的时间延迟。为了实现实时查看，$\lambda$-架构定义了通过结合批处理与流处理，使数据被处理两次的过程。对数据的冗余处理使这一架构产生了许多浪费。在不要求连续获得低延迟或者限制在几分钟以内返回的处理结果的时候，目前判定是否两个处理层都是不可避免的方法还不存在。因此，我们提出在$\lambda$-架构下按需进行流处理的方法，以便能够更有效地使用资源，并减少硬件投资。我们使用性能模型作为预测批处理任务响应时间以及决定进行额外的流处理任务的决策方法。通过一个智慧能源的应用案例，我们实现了我们所提出的方案，并且评测了其精确程度。
+\keywords{$\lambda$-架构, 大数据, 性能, 模型, 检验}
+\end{abstract}
+
+
+\section*{参考文献}
+
+\printbibliography[heading=none]
+
+
+
+%%%%-----------------------------------------------------------------
+%%%%-----------------------------------------------------------------
+
+\cleardoublepage
+
+\begin{refsection}
+
+\printbibliography[heading=none]
+\end{refsection}
+
+\end{document}
