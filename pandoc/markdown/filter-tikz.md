@@ -1,3 +1,50 @@
+## TIKZ过滤器的写法[12-02-2016 22:53:29 CST]
+
+主要是在markdown当中就有tikz图片的代码，然后以图片的形式插入到文档中。
+
+其实我们也可以这样搞：对于所有的需要编译成图片的代码段，我们直接输入.toFigure属性就可以了。如果有toFigure属性，那么就表示我们希望得到的是代码执行的结果而不是代码的部分属性。其实这也就是一种交叉的笔记本而已了。也许可以使用Jupyter之类的导出为markdown。
+
+Use this
+
+    ```latex
+    \begin{tikzpicture}
+    
+    \def \n {5}
+    \def \radius {3cm}
+    \def \margin {8} % margin in angles, depends on the radius
+    
+    \foreach \s in {1,...,\n}
+    {
+      \node[draw, circle] at ({360/\n * (\s - 1)}:\radius) {$\s$};
+      \draw[->, >=latex] ({360/\n * (\s - 1)+\margin}:\radius) 
+        arc ({360/\n * (\s - 1)+\margin}:{360/\n * (\s)-\margin}:\radius);
+    }
+    \end{tikzpicture}
+    
+    ```
+
+to get 
+
+```latex
+\begin{tikzpicture}
+
+\def \n {5}
+\def \radius {3cm}
+\def \margin {8} % margin in angles, depends on the radius
+
+\foreach \s in {1,...,\n}
+{
+  \node[draw, circle] at ({360/\n * (\s - 1)}:\radius) {$\s$};
+  \draw[->, >=latex] ({360/\n * (\s - 1)+\margin}:\radius) 
+    arc ({360/\n * (\s - 1)+\margin}:{360/\n * (\s)-\margin}:\radius);
+}
+\end{tikzpicture}
+```
+
+### 过滤器的编写
+
+
+```python
 #!/usr/bin/env python3
 
 """
@@ -69,3 +116,4 @@ def tikz(key, value, format, meta):
 
 if __name__ == "__main__":
     toJSONFilter(tikz)
+```

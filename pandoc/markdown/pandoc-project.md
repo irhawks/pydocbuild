@@ -47,3 +47,119 @@ Metadata.yaml的配置可以参考 http://blog.martinfenner.org/2013/06/29/metad
 其实文学编程是很简单的事情，只要从文章当中抽出来块名称和块定义就可以了。当然，块名称可以有许多个，块定义也可以有许多个。在块定义当中，应该能够智能地分辨出来哪些是代码，哪些是插入块的标记。于是本质上，还是需要我们能够根据块，推导块与块之间的依赖关系。本质上就是程序理解。比如一个函数调用了另一个函数，比如一个定义使用了另一个定义。深入理解程序之间的依赖关系是非常难的，因为需要深入到程序的数据结构当中。
 
 Markdoc也是一个关于文学编程的工具，支持非常多的格式<http://markdoc.org/>。以及<https://github.com/haghish/MarkDoc>。但是需要配合Stata使用。
+
+markdown的项目的管理--元数据的管理
+----------------------------------------------------------------------
+
+    ---
+    title: '测试标题'
+    author: 任呈祥
+    toc: true
+    toc-depth: 3
+    documentclass: article
+    biblio-files: addons/bib/myrefs.bib
+    csl: addons/csl/acm-sig-proceedings.csl
+    
+    filter.abc.imagedir: target/abc-images
+    filter.tikz.imagedir: target/tikz-images
+    
+    header-includes:
+        - \usepackage{abc}
+    ...
+
+在导言当中可以添加尽可能多的内容，像keywords之类的，其实都应该放里面的。甚至在毕业论文当中，markdown也成为了最简的形式了：大多数的字段都可以放在markdown里面的。
+
+
+纯markdown项目的编译问题：使用Makefile
+----------------------------------------------------------------------
+
+```make
+######################################################################
+## Project Hierachy Management ( pre-defined directories )
+######################################################################
+
+## Markdown extension (e.g. md, markdown, mdown).
+MARKDOWN_EXT = md
+
+## Location of Pandoc support files.
+CONFIG_FILE = ~/.pandoc
+CONFIG_PATH = .
+
+## Resources files and addons
+ADDONS_DIR := ./addons
+TEMPLATE_DIR = ${ADDONS_DIR}/templates
+FILTERS_DIR = ${ADDONS_DIR}/filters
+CSL_DIR = ${ADDONS_DIR}/csl
+BIB_DIR = ${ADDONS_DIR}/bib
+
+
+######################################################################
+## Pandoc (as a compiler) options
+
+PANDOC_OPTS := -r markdown+simple_tables+table_captions+yaml_metadata_block
+PANDOC_OPTS += --biblatex
+PANDOC_OPTS += --filter ${FILTERS_DIR}/abc.py
+PANDOC_OPTS += --filter ${FILTERS_DIR}/tikz.py
+#PANDOC_OPTS += --filter ${FILTERS_DIR}/graphviz.py
+
+## Note:
+## --csl, --filter, --bibliography options should be put in metadata.yaml
+
+## The following options should be put in metadata.yaml, but not yet 
+## be implemented as a key:value
+## options: --templates, --listings, --latex-engine
+
+PANDOC_OPTS += --latex-engine=xelatex
+#PANDOC_OPTS += --template=
+
+
+########################################################################
+## Source and target files specified
+########################################################################
+
+## Sources files should be put in the src/ directory,
+## generated files like pdf, html should be put in the target/ directory.
+
+SRC_FILES = $(wildcard src/articles/union.md)
+SRC_BASENAME = $(patsubst src/articles/%.md,%.md,${SRC_FILES})
+PDF_FILES = $(patsubst %.md,target/latex/%.pdf,${SRC_BASENAME})
+HTML_FILES =$(patsubst %.md,target/html/%.html,${SRC_BASENAME})
+TEX_FILES = $(patsubst %.md,target/latex/%.tex,${SRC_BASENAME})
+
+
+#####################################################################
+## Target Requirements
+#####################################################################
+
+.PHOHY : default all clean html
+
+default : ${PDF_FILES}
+
+all: ${PDF_FLIES} ${HTML_FILES} ${TEX_FILES}
+
+html : ${HTML_FILES}
+
+latex : ${TEX_FILES}
+
+clean: clean-pdf clean-tex clean-html
+clean-pdf:
+	rm -rf ${PDF_FILES}
+clean-tex:
+	rm -rf ${TEX_FILES}
+clean-html:
+	rm -rf ${HTML_FILES}
+
+
+#####################################################################
+## Concret targets
+#####################################################################
+
+${HTML_FILES} : ${SRC_FILES}
+	pandoc ${PANDOC_OPTS} -s -S -w html -o $@ $< metadata.yaml
+	
+
+${TEX_FILES} : ${SRC_FILES}
+	pandoc ${PANDOC_OPTS} -s -S -w latex -o $@ $< metadata.yaml
+```
+
+如下的makefile文件，尝试把markdown文件输出成latex或者html。（如果能够输出多种格式，其实是最为理想的方案了。特别是在YAML当中还可以指定图片目录的情况下。

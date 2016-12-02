@@ -1,8 +1,0 @@
----
-title: '测试标题'
-toc: true
-tocdepth: 3
-documentclass: article
-bibliography: addons/bib/myrefs.bib
-csl: addons/csl/acm-sig-proceedings.csl
-...
