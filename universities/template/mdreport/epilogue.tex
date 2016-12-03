@@ -1,0 +1,37 @@
+\subsection{附录内容I}
+
+最后一个.nw文件必须包含noweb的块，不然在生成索引的时候会出现错误。但是如果中间的
+一个.nw文件有错误，却不会导致问题。看来noweb还是有一个bug。
+
+\section{NOWEB的索引}
+
+\subsection{定义的块}
+
+\nowebchunks
+
+
+\subsection{定义的函数的索引}
+
+\nowebindex
+
+\BgThispage
+%结束文档
+
+\AtEndDocument{\vfill\vfill\hrule
+    \noindent{\fontsize{14pt}{22pt}\selectfont\bfseries 指导教师评语：}\\ 
+    \vskip2.5cm\vfill
+    \hfill \begin{tabu} to 0.4\textwidth {XX[2]}
+        导师签名：& \\
+        \multicolumn{2}{c}{\hfill 年\hfill 月\hfill 日} 
+    \end{tabu}\\\pagebreak[2]
+    \hrule
+    \noindent{\fontsize{14pt}{22pt}\selectfont\bfseries 开题评审小组意见：}\\ 
+    \vskip3cm\vfill
+    \hfill \begin{tabu} to 0.4\textwidth {XX[2]}
+        组长签章： & \\
+        \multicolumn{2}{c}{\hfill 年\hfill 月 \hfill 日} 
+    \end{tabu}
+    }
+
+
+\end{document}

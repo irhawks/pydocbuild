@@ -1,0 +1,82 @@
+\documentclass{hnureport}
+
+\usepackage[backend=biber]{biblatex}
+
+\input{nwpandoc.tex}
+
+%%%%---------------------------------------------------------------
+
+\RequirePackage{minted}
+\newmintinline[TC]{latex}{breaklines,breakanywhere,showspaces}
+\usepackage{tcolorbox}
+\tcbuselibrary{most,minted}
+\DeclareTCBListing{latexcode}{ O{} }{%
+    listing engine=minted,minted style=colorful,
+    minted language=latex,
+    minted options={breaklines,breakanywhere,
+        fontsize=\small,linenos,numbersep=3mm},
+    colback=blue!10!white,colframe=blue!40,
+    arc=1mm,boxrule=0.5pt,
+    listing only,
+    %size=title,
+    left=5mm,top=0mm,bottom=0mm,
+    enhanced jigsaw,opacityback=0.5,breakable,
+    interior style={%
+        left color=blue!30!white, right color=blue!10},
+    overlay={%
+        \begin{tcbclipinterior}
+            \fill[red!20!blue!20!white] (frame.south west) %
+                rectangle ([xshift=5mm]frame.north west);
+        \end{tcbclipinterior}},#1}
+
+\newtcolorbox{tColorBoxCommonViolet}[1][]{left=0mm,right=0mm,top=2mm,bottom=0mm,breakable,
+    enhanced jigsaw,colback=BlueViolet!10,arc=1mm,colframe=BlueViolet!50,
+    size=title,boxrule=0.5pt,opacityback=0.8,#1}
+
+\newenvironment{nowebtrunk}[1][]%
+    {\begin{tColorBoxCommonViolet}[#1]} %
+    {\end{tColorBoxCommonViolet}}
+
+
+\usepackage{noweb}
+\noweboptions{nomargintag,hyperidents,smallcode,longchunks}
+%% fix noweb dimen issues
+\setlength{\nwdefspace}{0pt}
+\setlength{\codehsize}{\textwidth-2\parindent}
+
+
+%%%%--------------------------------------------------------------------------
+
+\author{任呈祥} 
+\title{面向服务体系结构下基于价值的过设计与欠设计的问题研究} 
+\studentnumber{14081200210004}
+\institution{海南大学} 
+\supervisor{段玉聪}[] 
+
+\profession{14计算机科学与技术} 
+\degreetype{工学硕士} 
+\domain{---}
+
+\graphicspath{{pictures/}}
+
+\graduatedate{2017年5月}
+\studenttopic{面向服务、形式化方法、UD与OD} 
+\plannedfirstdraft{2015年10月}
+\plannedManuscript{2015年12月}
+
+
+\usepackage{lipsum}
+
+\addbibresource{citation/myrefs.bib}
+
+\begin{document}
+
+\pagestyle{empty}
+
+\NoBgThispage
+
+\makecover
+
+\clearpage
+%\AddToShipoutPicture{\BackgroundPic}
+\makeHeader

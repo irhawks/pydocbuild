@@ -1,0 +1,60 @@
+\documentclass{hnuthesis}
+
+\usepackage{noweb}
+\noweboptions{nomargintag,hyperidents,smallcode,longchunks}
+%% fix noweb dimen issues
+\setlength{\nwdefspace}{0pt}
+\setlength{\codehsize}{\textwidth-2\parindent}
+
+\addbibresource{citation/myrefs.bib}
+
+
+\Author{任呈祥}
+\EnglishAuthor{Chengxiang Ren}
+
+\Title{海南大学研究生学位论文模板}
+\EnglishTitle{How to write a definite template in \LaTeX{} for the Hainan University (Draft Version)}
+
+\Date{2016年10月24日}
+\EnglishSubmissionDate{October, 2016}
+
+\EnglishCollege{College of Information Science and Technology}
+
+\DegreeType{学术型}
+\EnglishDegreeType{Science}
+
+\SchoolCode{10589}
+\ClassificationCode{分类码}
+\StudentCode{140812002}
+\SecurityLevel{绝密(启用前)}
+
+\SchoolLogoFile{pictures/hainu.png}
+
+\Major{计算机科学与技术}
+\EnglishMajor{Computer Science and Technology}
+
+\Supervisor{XXX 教授}
+\EnglishSupervisor{Prof. XXX}
+
+\usepackage{lipsum}
+
+\begin{document}
+
+\TitlePage
+
+\EnglishTitlePage
+
+\Declarations
+
+\EnglishKeywords{abc, def, ghi, lms}
+\ChineseKeywords{模板，中文，海南大学，毕业论文}
+
+\begin{ChineseAbstract}
+    \lipsum[1-2]
+\end{ChineseAbstract}
+
+\begin{EnglishAbstract}
+    \lipsum[1-2]
+\end{EnglishAbstract}
+
+\TableOfContents
