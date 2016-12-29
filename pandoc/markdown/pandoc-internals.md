@@ -214,3 +214,44 @@ split delim str =
 > 自己觉得任由Pandoc用户来定义各种各样的扩展其实是并不好的。我们可以定义一个标准的Pandoc内嵌语言机制。比如说，使用`{# instructions}`来表示Pandoc文档的扩展的东西，比如在其中引入`#include`这样的指令。并且由相应的程序来处理特定的指令与扩展。还有就是，表格、图片等的引用可以更好地处理，使用特殊的头即可。（为图片和表格添加特定的扩展属性，比如sideways等）。
 
 > 注：自己觉得Pandoc的table处理得不好，不妨可以直接使用CSV格式作为表格来源。这样的话直接展示CSV就可以了。当然，Pandoc本身还是支持使用表格标题的，但是各种各样的引用好像就不支持了。各种各样的Attributes其实还是很烦人的。
+
+
+## Pandoc的图片与表格的解析[12-28-2016 17:46:46 CST]
+
+自己设想，表格体应该都可以转换成CSV的格式表达，不管表格体里面是否有跨行元素或者跨列的元素，应该都能够通过元素认识它们。也许表格可以按这样的方式表达：
+
+
+```
+A1: name
+A2: title
+A3: ...
+B1-B3: Hello
+```
+
+通过这样的列表字段表达，或许更能够表达表格的含义。它表示在Grid布局当中各个元素应该代表什么。这样的话，我们也可以很快地找到内容。而且，这个时候，也允许表格当中的许多部分的元素保持空白，而且在描述的时候或许也能够保持一些语义信息。这种表示方法的关键是：将表格当中的内容当成实际的元素，然后通过A1这样的引用形式，来表示应该将相应的内容展现到哪里。自己觉得，这种方法可能比CSV更适合于表达试算表当中的信息。
+
+而markdown当中的图片，自己觉得应该有一个preview的工具。为什么呢？有了一个文字形式表示的缩略图，或许可以更清楚地表达信息。至于OCR这样的技术，我们可以暂时不考虑，只考虑富媒体文件的表示问题。自己觉得有些内容可以以Base64编码的形式存储在markdown文件当中。而Base64编码当中，由于使用的字符有限，我们也可以压缩表示。
+
+我们可以考虑一下在终端当中显示图像的一些程序，因为在终端当中也可以看电影和查看图片。再来看TermKit，所谓的新一代终端工具。<http://acko.net/>上面介绍了一个人发明的各种工具，比如使用图形关系来代替OpenGL的代码进行渲染。这样直观的图形可以变成代码，实在是很方便的一件事情。
+
+img2txt也来自cacaview。纯文本地展示图形，称为所谓的ASCII art。有可能的话，在markdown里面添加一个缩略图或许也是不错的方案吧。
+
+### Pandoc的Markdown的表格解析机制[12-28-2016 18:50:57 CST]
+
+`Text.Pandoc.Writers.Markdown`负责写入markdown文件，将Pandoc变成Markdown的格式。导出有writeMarkdown与writePlain函数。其中的写入表格的函数是这样的：
+
+```
+pipeTable :: Bool -> [Alignment] -> [Doc] -> [[Doc]] -> State WriterState Doc
+pandocTable :: WriterOptions -> Bool -> [Alignment] -> [Double] -> [Doc] -> [[Doc]] -> State WriterState Doc
+gridTable :: WriterOptions -> Bool -> [Alignment] -> [Double] -> [Doc] -> [[Doc]] -> State WriterState Doc
+```
+
+负责写入的函数是
+
+```haskell
+blockToMarkdown opts t@(Table caption aligns widths headers rows) = do
+```
+
+其中的各行各列内容使用rows来表示。
+
+所有的关键的问题就是如何表示各类模型，比如Table的模型。根本上来说，Table的元素内容应该视为一个二维表格（除了表格标题与引用标记之外）。每个表格里面是一些元素。里面的元素可以是非常任意的类型。要是自己的话，自己还是建议使用csv格式来表示表格。目前Pandoc的格式当中，正确转换表格的概率比较低。
