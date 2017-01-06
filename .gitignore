@@ -8,3 +8,4 @@ dist/*
 build
 pydocbuild.egg-info/
 .tox
+docs
