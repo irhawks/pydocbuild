@@ -1,0 +1,9 @@
+*.swp
+ghostdriver.log
+.doit*
+
+__pycache__
+
+dist/*
+build
+pydocbuild.egg-info/
