@@ -60,8 +60,26 @@ def to_metadata (args) :
 
         # 在mirror当中添加task_list属性，表示获取相应topic的任务名
         args['task_list'] = [args['taskname_func'](topic)
-        for topic in args['topic_list']]
+            for topic in args['topic_list']]
         return args
+
+## 将数据变成是元数据的各个项目，每个项目作为单独的数据列表而出现。每次获取单独生成页面。
+
+def to_separate_metadata_list(args) :
+
+        result = []
+        taskname_func = lambda topic : 'task_' + args['url_pattern'] % topic
+        args['taskname_func'] = taskname_func
+        print(args)
+        for topic in args['topic_list'] :
+            result += [{'url_pattern' : args['url_pattern'],
+                'filter' : args['filter'], 
+                'topic_list' : [topic],
+                'task_list' : [args['taskname_func'](topic)],
+                'taskname_func' : args['taskname_func']}]
+        print("结果")
+        print(result)
+        return result       
 
 ## 能够生成task (yield a series of tasks) 的一些辅助函数
 

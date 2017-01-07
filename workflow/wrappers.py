@@ -80,7 +80,7 @@ class PandocWrapper(PopenWrapper) :
 class DefaultPandocWrapper(PopenWrapper) :
 
     def __init__(self) :
-        super().__init__('pandoc', "-f", "markdown", "-t", "html", "--wrap=none")
+        super().__init__('pandoc', "-f", "html", "-t", "commonmark", "--wrap=none")
 
 def test() :
     wrapper = DefaultPandocWrapper()
