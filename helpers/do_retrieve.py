@@ -70,15 +70,15 @@ def to_separate_metadata_list(args) :
         result = []
         taskname_func = lambda topic : 'task_' + args['url_pattern'] % topic
         args['taskname_func'] = taskname_func
-        print(args)
+        #print(args)
         for topic in args['topic_list'] :
             result += [{'url_pattern' : args['url_pattern'],
                 'filter' : args['filter'], 
                 'topic_list' : [topic],
                 'task_list' : [args['taskname_func'](topic)],
                 'taskname_func' : args['taskname_func']}]
-        print("结果")
-        print(result)
+        #print("结果")
+        #print(result)
         return result       
 
 ## 能够生成task (yield a series of tasks) 的一些辅助函数
@@ -120,7 +120,7 @@ def builder_for_html_to_markdown(task_dep_list, task_html_generator, taskname) :
 
     def pandoc_convert(content) :
 
-        return {'result' : DefaultPandocWrapper().execute(content[task_html_generator])}
+        return {'result' : StanfordHtmlFilter().execute(content[task_html_generator])}
 
     return {
         'basename' : taskname,

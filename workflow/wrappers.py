@@ -80,7 +80,7 @@ class PandocWrapper(PopenWrapper) :
 class DefaultPandocWrapper(PopenWrapper) :
 
     def __init__(self) :
-        super().__init__('pandoc', "-f", "html", "-t", "commonmark", "--wrap=none")
+        super().__init__('pandoc', "-f", "html", "-t", "markdown", "--wrap=none")
 
 def test() :
     wrapper = DefaultPandocWrapper()
@@ -125,6 +125,21 @@ class BaiduBaikeHtmlFilter(CompositeWrapper) :
                 "-e", r's/\s\+-\s\+\([0-9]\+\)\\\.[^)]\+)\s\+/[^\1]: /',
                 "-e", r's/!\[/[图片：/g'))
 
+## 适用于斯坦福大学哲学百科全书的IEP解析器
+## https://plato.stanford.edu/entries/computing-history/
+
+class StanfordHtmlFilter(CompositeWrapper) :
+
+    def __init__(self) :
+        super().__init__(
+            PandocWrapper("-f", "html", "-t", "commonmark", "--wrap=none"),
+            PandocWrapper("-f", "commonmark", "-t", "markdown", "--wrap=none"))
+
+def testStanfordHtmlFilter() :
+    wrapper = StanfordHtmlFilter()
+    out = wrapper.execute(open('../testdata/baidubaike-hainan-university.html').read())
+    print(out)
+
 def testBaiduBaikeHtmlFilter() :
     wrapper = BaiduBaikeHtmlFilter()
     out = wrapper.execute(open('../testdata/baidubaike-hainan-university.html').read())
@@ -133,7 +148,8 @@ def testBaiduBaikeHtmlFilter() :
 if __name__ == '__main__' :
     #test()
     #testCompositeWrapper()
-    testBaiduBaikeHtmlFilter()
+    #testBaiduBaikeHtmlFilter()
+    testStanfordHtmlFilter()
 
 
 __doc__ = """
