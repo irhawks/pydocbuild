@@ -24,13 +24,13 @@ args = parser.parse_args()
 #  args.filename = open(sys.argv[1],'r')
 args.filename=sys.stdin
 
-print("Opening file")
+#print("Opening file")
 fin  = args.filename.read()
 
-print("Parsing file")
+#print("Parsing file")
 soup = BeautifulSoup(fin, "lxml")
 
-print("Preemptively removing unnecessary tags")
+#print("Preemptively removing unnecessary tags")
 [s.extract() for s in soup('script')]
 
 def build_table_datamodel(table) :
@@ -60,11 +60,11 @@ class WritableObject:
     def write(self, string):
         self.content += string
 
-print("CSVing file")
+#print("CSVing file")
 tablecount = -1
 for table in soup.findAll("table"):
   tablecount += 1
-  print("Processing Table #%d" % (tablecount))
+  #print("Processing Table #%d" % (tablecount))
   csvtable = WritableObject()
   #with open(sys.argv[1]+str(tablecount)+'.csv', 'w') as csvfile:
   #with sys.stdout as csvfile:
@@ -90,4 +90,4 @@ for table in soup.findAll("table"):
   surrounding.append(inner)
   table.replace_with(surrounding)
 
-open('new.html','w').write(str(soup))
+sys.stdout.write(str(soup))
