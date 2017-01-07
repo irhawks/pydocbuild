@@ -22,8 +22,6 @@ import sys
 
 sys.path.append(os.path.join(os.path.dirname(__name__), '..'))
 sys.path.append(os.path.join(os.path.dirname(__name__), '.'))
-sys.path.append('/home/hawk/git-repo/template/pydocbuild/')
-sys.path.append('/home/hawk/git-repo/template/pydocbuild')
 
 # -- General configuration ------------------------------------------------
 

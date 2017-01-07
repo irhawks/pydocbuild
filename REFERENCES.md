@@ -67,3 +67,26 @@ CCF的奖项的首页<http://www.ccf.org.cn/sites/ccf/ccfawards.jsp>。我们需
 有一个doit-graphx的插件，可以帮助我们生成依赖图
 
 <https://github.com/pydoit/doit-graphx>
+
+## 在Web挖掘当中的僵化的思维[01-07-2017 09:10:34 CST]
+
+现在我们意识到我们个体只是期望获取知识而已。这个时候，版面分析或许比直接分析DOM更为直接。这个时候自己也想起来一些现象。比如身边的人经常说挖掘Web的时候关键不是取下来，而是知道如何使用。但是对于递归下载，我们有网页爬虫可以使用。它可以帮助我们镜像一个网站生成本地的版本，从而加快预取的速度。不过，最为本质的方法，可能还是需要借助于网页的版面分析找到网页当中的关键内容。因为网页当中的重要的内容展示，都是展示出来面向人的。比如标题与导航栏的识别，就可以借助于CSS元素所计算出来的网页的宽度与位置等信息。借助于宽度与位置信息，或许我们能够更智能一些地分析问题。比如分析一个网站，并把网站的“重要信息”提取出来。所以，我们可以不只借助于DOM之类的内容。
+
+另外，即使是对于DOM，我们也可以设计一些转换的程序。比如HTML表格，可以使用XSLT转换程序。该转换程序在linux下面是xlstproc命令。因为目前现在也有许多的XSLT的脚本了，所以把table等不易于展示的内容变换成易于展示的内容，也比较不错吧。这种处理方法以前自己觉得很难操作。但是现在既然linux下面有这样的命令，那么其实我们还是可以试一下XSLT转换语言的。再比如linux下面的xmllint工具。其实相对来说可能是更实用的方案吧。<http://stackoverflow.com/questions/9365810/simple-tool-to-learn-xquery>上面介绍了一系列的xquery的工具。除了xmllint之外，还有一个著名的工具就是[xqilla](http://xqilla.sourceforge.net/HomePage)。这个工具也可以直接在ubuntu上面下载。(其实我们可以找ubuntu的package列表)。在Ubuntu的Packages.gz文件当中很容易就能够找到软件包的数据库，metadata。这样的话也可以方便我们的检索（其实在ubuntu的官网上面就可以检索）。
+
+这样的话，我们在寻找软件包的时候又有新的路线了。那就是各大语言的packagelist可以做成一个更大的软件包。形成一个软件库的百科大全。
+
+另外，还有一个挖掘的技巧是涉及格式转换的。那就是有一些HTML表格可以使用libreoffice之类的打开。它们能够正确处理HTML的table元素。因此这也算是一种不错的方法。
+
+<https://conversiontools.io/convert_html_to_csv/>上面还有一个自动的格式转换的工具。可以实现XML、PDF、CSV、XLS等多种格式的转换。另外，PDF也并非是不可修改。它可以使用pdfoo或者pdf2odt之类的工具。另外，libreoffice实际上能够编辑pdf，但是不能把pdf逆过来转成odt。<https://github.com/gutschke/pdf2odt>（然而pdfodt得到的是全图像的pdf）。其它的PDF工具用来抽取PDF里面的图片之类的也是有一些用处的。
+
+<http://www.freeformatter.com/xsl-transformer.html>是类似于conversiontools.io的一个东西，提供在线的转换。
+
+    In [89]: [e.text for e in e4[0].find_elements_by_xpath('./child::*')]
+
+可以使用xpath帮助我们找到一个元素的子元素，然后计算其属性：
+
+    traverse NULL = 0
+    traverse [e] = [[e.width, traverse(e)] for e in list]
+
+<http://blog.csdn.net/deng0jun/article/details/49869531>介绍了HTML文件的自动下载。

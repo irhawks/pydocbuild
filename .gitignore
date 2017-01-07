@@ -1,5 +1,5 @@
 *.swp
-ghostdriver.log
+*driver.log
 .doit*
 
 __pycache__

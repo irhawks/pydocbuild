@@ -28,6 +28,8 @@ class ElementRetriever () :
             return element.find_elements_by_class_name(self._pattern)
         if (self._method == 'css')   : 
             return element.find_elements_by_css_selector(self._pattern)
+        if (self._method == 'xpath')   : 
+            return element.find_elements_by_xpath(self._pattern)[0]
         return None
 
 ## 我们设计的Retriever具有链式的功能，也就是可以不断地持续为用Filter。但是最终有一个获取内容的Retriever，负责东西的出栈

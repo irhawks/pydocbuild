@@ -4,17 +4,20 @@
 from workflow.retrievers import *
 from workflow.wrappers import *
 
+from functools import reduce
+
 ## session指的是打开的selenium会话，这个会话需要用户自己管理。
 
-def do_selenium_retrieve (session, url_pattern, topic, pattern, method) :
-
-    ## 首先使用Selenium获取，然后再Filter
-    e1 = session.execute(url_pattern % topic)
-    e2 = ElementRetriever(pattern, method).filter(e1)
-    e3 = ElementContentRetriever().retrieve(e2)
-    return {'result' : e3}
 
 def yield_retrieve_page_list(selenium_session, record) :
+
+    def do_selenium_retrieve (session, url_pattern, topic, pattern, method) :
+    
+        ## 首先使用Selenium获取，然后再Filter
+        e1 = session.execute(url_pattern % topic)
+        e2 = ElementRetriever(pattern, method).filter(e1)
+        e3 = ElementContentRetriever().retrieve(e2)
+        return {'result' : e3}
 
     for topic in record['topic_list'] :
 
@@ -74,7 +77,6 @@ def combine_previous_task_results_as(taskname_list, new_task_name) :
 
         previous_result_list = [keywords['result_'+t][t] for t in taskname_list]
 
-        from functools import reduce
         return {'result' : reduce (lambda x, y : x + "\n" + y, previous_result_list, "")}
 
     return {
@@ -98,16 +100,16 @@ def builder_for_html_to_markdown(task_dep_list, task_html_generator, taskname) :
         taskname是生成的任务名
     """
 
-    def pandoc_convert(stdin) :
+    def pandoc_convert(content) :
 
-        return {'result' : DefaultPandocWrapper().execute(stdin[task_html_generator])}
+        return {'result' : DefaultPandocWrapper().execute(content[task_html_generator])}
 
     return {
         'basename' : taskname,
         'name' : taskname,
         'actions' : [pandoc_convert],
         'task_dep': task_dep_list,
-        'getargs' : {'stdin' : (task_html_generator, 'result')}
+        'getargs' : {'content' : (task_html_generator, 'result')}
     }
 
 
@@ -125,7 +127,7 @@ def builder_for_save_a_file(taskname, path, previous_task, task_dep_list) :
         'targets' : [path]
     }
 
-## 缺省task_dep_list就是previous_task
+## 缺省task_dep_list就是previous_task，这类任务不再返回result，而是产生文件之类的。
 
 def builder_for_save_a_file(taskname, path, previous_task) :
 
@@ -142,3 +144,57 @@ def builder_for_save_a_file(taskname, path, previous_task) :
     }
 
 ## 结果都保存在results里面，应该是没有错误了。
+
+## 将整个流程都进行转换
+
+def webpages_to_markdown (selenium_session, record, savename) :
+
+    all_topic = reduce (lambda x, y : x + "," + y, record['topic_list'], "")
+    generator_taskname = '生成HTML:' + record['url_pattern'] + all_topic
+    converter_taskname = '转换HTML到markdown:' + record['url_pattern'] + all_topic
+    saver_taskname = '保存markdown:' + savename + record['url_pattern'] + all_topic
+    yield yield_retrieve_page_list(selenium_session, record) 
+    yield combine_previous_task_results_as(record['task_list'], generator_taskname)
+    yield builder_for_html_to_markdown([generator_taskname], generator_taskname, converter_taskname)
+    yield builder_for_save_a_file(taskname= saver_taskname, 
+            path=savename,
+            previous_task=converter_taskname)
+
+
+
+__doc__ = """
+
+如果抽象起来，应该抽象一个名为TaskGenenerator的类别。
+它们完成的任务是TaskGeneration，也就是任务生成。完成任务的过程称为Generate。
+
+基本的task任务是获取任务，也就是从任务元数据描述中生成基本任务，比如根据列表生成任务
+
+然后是一些composite任务与转换器生成器的任务。生成一些转换格式的任务。
+
+或者一些Filter任务的生成，用于对于一些细节内容进行过滤。
+
+即使纯粹从抽象的角度考虑，面向对象/类型也是不错的。它给了我们一种体系化结构的方法。
+
+TaskGenerator = ShellTaskGenerator 
+    | CompositeTaskGenerator
+    | FilterTaskGenerator
+    | SaverTaskGenerator
+于是关键的内容，就是如何找到TaskGenerator的类型。自然而然地，需要有任务类型。
+
+常见的任务类型有哪些呢？还是需要查表。这个时候是需要有一些经验知识的。
+
+## 我们需要了解任务之间关联的方式，并讨论这些关联的方式所遵守的规律。
+
+比如，最基本的是通过类似于管道的机制，一个任务传递另外一个任务结果，这个时候标准的做法应该是通过result关键字。
+
+其次的过程，比如一些读取文件或者保存文件的东西，它们需要从文件当中读取内容，
+并不是接着上一个任务的输出。它们在这里扮演着任务系统的输入输出的作用。
+比如读入文件，读出文件的任务，ReaderTask, WriterTask。
+* ReaderTask需要把所读取的文件写到file_dep变量当中。
+* WriterTask需要把自己所生成的文件写到targets变量当中。
+这可以称为这两类变量的特征，它们的动作与它们的元数据的关联关系。
+
+这样的话，才方便任务的继续依赖的执行。（形成计算图的结构）
+
+"""
+
