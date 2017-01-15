@@ -30,8 +30,8 @@ class HtmlTableConvertToCsvCode (HtmlParser) :
     #rbarnes@umn.edu
     ## 初始化函数传递参数，以字典的形式，比如delimiter属性
     ## 属性来自于csv模块。
-    def __init__(self, **args)
-        self._args = **args
+    def __init__(self, **args) :
+        self._args = args
 
     def build_table_datamodel(table) :
     
