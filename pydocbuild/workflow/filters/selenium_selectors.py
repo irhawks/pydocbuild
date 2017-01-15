@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-from pydocbuild.workflow.filters.basic import *
-from pydocbuild.workflow.context.context import SeleniumContext
+from basic import *
 
 #from selenium import webdriver
 
@@ -39,14 +38,3 @@ class SelectSeleniumContent(Filter) :
 
     def extract(self,selenium_element) :
         return selenium_element.get_attribute('innerHTML')
-
-
-def testFilter() :
-
-    w2 = SeleniumWrapper('firefox')
-    r = w2.execute('https://www.baidu.com')
-    e = SelectSeleniumElement('kw').filter(r)
-    print(e.text)
-
-if __name__ == "__main__" :
-    testFilter()

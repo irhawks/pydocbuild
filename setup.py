@@ -14,6 +14,7 @@ setup(name='pydocbuild',  #打包后的包文件名
     requires=["doit","selenium"],
     install_requires=["doit", "selenium"],
     classifiers=(
-        "Programming Language :: Python"
+        "Development Status :: 2 - Pre-Alpha",
+        "Programming Language :: Python",
     ),
 )

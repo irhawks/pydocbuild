@@ -33,16 +33,10 @@ class SeleniumContext () :
         self._browser.get(url)
         return self._browser.page_source
 
+    def get_element(self, url) :
+
+        self._browser.get(url)
+        return self._browser
+
     def teardown (self) :
         self._browser.quit()
-
-
-def test() :
-    wrapper = SeleniumContext(browser='phantomjs')
-    wrapper.execute('http://www.baidu.com')
-    wrapper.execute('http://www.qq.com')
-    wrapper.teardown()
-
-if __name__ == '__main__' :
-    test() 
-

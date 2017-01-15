@@ -1,0 +1,3 @@
+{
+  "tests/unittest/test_filters.py::TestSeleniumSelectors::()::test_webpage_filter": true
+}

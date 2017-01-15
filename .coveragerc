@@ -1,0 +1,6 @@
+[run]
+omit = tests/*
+source = pydocbuild
+
+[paths]
+source = pydocbuild

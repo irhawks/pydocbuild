@@ -1,0 +1,7 @@
+pytest
+pytest-cov
+mock
+testtools
+fixtures
+flake8
+coverage
