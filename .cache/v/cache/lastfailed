@@ -1,3 +1,3 @@
 {
-  "tests/unittest/test_filters.py::TestSeleniumSelectors::()::test_webpage_filter": true
+  "tests/unittest/test_wrappers_utils.py": true
 }

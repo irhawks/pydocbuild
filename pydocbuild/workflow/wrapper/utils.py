@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import basic
+import pydocbuild.workflow.wrapper.basic
 
 __doc__ = """
 基本的对于程序的包装，如果只适用于特定的网站，则不放在workflow里面
@@ -29,14 +29,3 @@ class DefaultPandoc(basic.Popen) :
     """
     def __init__(self) :
         super().__init__('pandoc', "-f", "html", "-t", "markdown", "--wrap=none")
-
-def test() :
-    wrapper = DefaultPandoc()
-    print(wrapper.execute("**Hello**"))
-    print(wrapper.execute("**Hell*o*, world**"))
-    w = Sed("-e", "s/e/abc/g")
-    print(w.execute("**Hello**"))
-
-
-if __name__ == '__main__' :
-    test()

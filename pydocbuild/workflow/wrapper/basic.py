@@ -61,18 +61,3 @@ class Composite() :
         for wrapper in self._wrappers :
             result = wrapper.execute(result)
         return result
-
-def testComposite() :
-    a = Composite(
-            Popen("sed", "-e", "s/e/abc/g"), 
-            Popen("sed", "-e", "s/a/def/g"))
-    print(a.execute("hello"))
-
-
-## -------------------------------------------------------------------
-
-
-if __name__ == '__main__' :
-    testComposite()
-
-

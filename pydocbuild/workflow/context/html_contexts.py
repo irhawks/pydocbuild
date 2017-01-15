@@ -11,12 +11,15 @@ import subprocess
 
 # from selenium import webdriver
 from selenium.webdriver.remote.webdriver import WebDriver
-
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-## 这里包装的只是一个Selenium的接口
 
 class SeleniumContext () : 
+    """
+    这里包装的只是一个Selenium的接口
+    get_element返回selenium的对象
+    get_content返回网页的内容
+    """
     
     def __init__ (self, **kwargs) :
 
@@ -37,6 +40,11 @@ class SeleniumContext () :
 
         self._browser.get(url)
         return self._browser
+
+    def get_content(self, url) :
+
+        self._browser.get(url)
+        return self._browser.page_source
 
     def teardown (self) :
         self._browser.quit()
