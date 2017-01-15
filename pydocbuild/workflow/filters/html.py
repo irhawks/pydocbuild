@@ -1,23 +1,21 @@
 #!/usr/bin/env python3
 
-## 使用HtmlParser来解析Html文档当中的内容，按照标准输出与标准输出的方式
+__doc__ = """
+使用HtmlParser来解析Html文档当中的内容，按照标准输出与标准输出的方式
+"""
 
-from workflow.retrievers import *
-from workflow.wrappers import *
+from .basic import Filter
 
-from functools import reduce
 
-## 内部函数，使用的是BeautifulSoup，
-## 它们的任务是，接受一个Html文档，返回经过修整之后的Html文档
-## 在Html的级别进行工作
-
-class HtmlParser() :
-
+class HtmlFilter(Filter) :
+    """
+    内部函数，使用的是BeautifulSoup，
+    它们的任务是，接受一个Html文档，返回经过修整之后的Html文档
+    在Html的级别进行工作
+    """
     def __init__(self) :
         pass
 
-
-## 基于BeautifulSoup的Parser
 
 from bs4 import BeautifulSoup
 import sys
@@ -25,12 +23,15 @@ import csv
 import argparse
 import re
 
-class HtmlTableConvertToCsvCode (HtmlParser) :
+class HtmlTableConvertToCsvCode (HtmlFilter) :
 
-    #Richard's html2csv converter
-    #rbarnes@umn.edu
-    ## 初始化函数传递参数，以字典的形式，比如delimiter属性
-    ## 属性来自于csv模块。
+    """
+    基于BeautifulSoup的Parser
+    Richard's html2csv converter <rbarnes@umn.edu>
+    初始化函数传递参数，以字典的形式，比如delimiter属性
+    属性来自于csv模块。
+    """
+
     def __init__(self, **args) :
         self._args = args
 

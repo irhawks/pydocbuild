@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+from pydocbuild.workflow.wrapper import *
+
 __doc__ = """
 <http://www.iep.utm.edu/stoicism/>哲学互联网百科的parser
 其实每个Filter应该和这个网站的特定的解析Pattern结合的。比如说IEP，实际上其Pattern应该是特定的，
@@ -25,4 +27,3 @@ class InternetEncycloPhilHtmlWrapper(Composite) :
             Pandoc("-f", "html", "-t", "commonmark", "--wrap=none"),
             Pandoc("-f", "commonmark", "-t", "markdown", "--wrap=none"),
             Sed("-e", r's/!\[/[Fig：/g'))
-    

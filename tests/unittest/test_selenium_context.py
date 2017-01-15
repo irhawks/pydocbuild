@@ -12,7 +12,7 @@ class TestSeleniumContext :
 
         wrapper.teardown()
 
-        assert "百度一下，你就知道" in e1.title
+        assert "百度一下，你就知道" in e1
         assert 'QQ' in e2
 
     def test_selenium_firefox_context(self) :
@@ -25,5 +25,5 @@ class TestSeleniumContext :
 
         wrapper.teardown()
 
-        assert "百度一下，你就知道" in e1.title
+        assert "百度一下，你就知道" in e1
         assert 'QQ' in e2

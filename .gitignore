@@ -6,6 +6,6 @@ __pycache__
 
 dist/*
 build
-pydocbuild.egg-info/
+*.egg-info
 .tox
 docs

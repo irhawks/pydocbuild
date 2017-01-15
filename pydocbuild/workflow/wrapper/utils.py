@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import pydocbuild.workflow.wrapper.basic
+from pydocbuild.workflow.wrapper import basic
 
 __doc__ = """
 基本的对于程序的包装，如果只适用于特定的网站，则不放在workflow里面

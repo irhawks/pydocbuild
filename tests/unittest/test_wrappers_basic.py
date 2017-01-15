@@ -2,7 +2,7 @@ from pydocbuild.workflow.wrapper.basic import *
 
 class TestCompositeWrapper :
 
-    def test_compose_sed_filters() :
+    def test_compose_sed_filters(self) :
         a = Composite(
                 Popen("sed", "-e", "s/e/abc/g"), 
                 Popen("sed", "-e", "s/a/def/g"))

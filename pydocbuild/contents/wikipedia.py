@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+from pydocbuild.workflow.wrapper import *
+
 __doc__ = """
 也有一些文档是直接可以获得Wiki上面的元数据，对于这类内容，似乎我们应该换种方式。
 WikipediaWikitextFilter是作用在Wikitext格式上面的Filter。

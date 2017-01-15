@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-class Filter () :
+class Filter :
 
     def extract (self, element) :
         pass
