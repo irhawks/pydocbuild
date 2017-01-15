@@ -1,17 +1,16 @@
 #!/usr/bin/env python3
 
-import os
-import subprocess
+from pydocbuild.workflow.filters.basic import *
+from pydocbuild.workflow.context.context import SeleniumContext
 
-from selenium import webdriver
+#from selenium import webdriver
 
-## -------------------------------------------------------------------
+__doc__ = """
+我们设计的Retriever具有链式的功能，也就是可以不断地持续为用Filter。但是最终有一个获取内容的Retriever，负责东西的出栈
+这个过滤器只负责取出元素的内容
+"""
 
-class Retriever () :
-    def retrieve (self, url) :
-        pass
-
-class ElementRetriever () :
+class SelectSeleniumElement (Filter) :
 
     def __init__(self, pattern, method="id") :
         """ 缺省是根据id进行过滤 """
@@ -32,19 +31,22 @@ class ElementRetriever () :
             return element.find_elements_by_xpath(self._pattern)[0]
         return None
 
-## 我们设计的Retriever具有链式的功能，也就是可以不断地持续为用Filter。但是最终有一个获取内容的Retriever，负责东西的出栈
-## 这个过滤器只负责取出元素的内容
 
-class ElementContentRetriever(Retriever) :
+class SelectSeleniumContent(Filter) :
+
     def __init__(self) :
         pass
-    def retrieve(self,selenium_element) :
+
+    def extract(self,selenium_element) :
         return selenium_element.get_attribute('innerHTML')
 
 
-def testRetriever() :
+def testFilter() :
+
     w2 = SeleniumWrapper('firefox')
     r = w2.execute('https://www.baidu.com')
-    e = ElementRetriever('kw').filter(r)
+    e = SelectSeleniumElement('kw').filter(r)
     print(e.text)
 
+if __name__ == "__main__" :
+    testFilter()

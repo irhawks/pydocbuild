@@ -24,6 +24,7 @@ import sys
 import csv
 import argparse
 import re
+
 class HtmlTableConvertToCsvCode (HtmlParser) :
 
     #Richard's html2csv converter
