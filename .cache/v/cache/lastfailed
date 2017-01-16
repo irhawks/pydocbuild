@@ -1,4 +1,1 @@
-{
-  "tests/unittest/test_filters.py::TestSeleniumSelectors::()::test_selenium_firefox_filter": true,
-  "tests/unittest/test_stanford_plato.py::TestStanfordPlato::()::test_stanford_html_wrapper": true
-}
+{}
