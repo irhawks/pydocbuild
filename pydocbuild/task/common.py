@@ -48,6 +48,7 @@ def html_to_markdown(name, taskdep, **options) :
         task_dep_list 是执行该程序之前应该执行的任务
         task_html_generator 表示的是能够生成html的任务，我们需要从这个任务中提取result
         taskname是生成的任务名
+        converter
     """
     return generate_converter(name, taskdep, **options)
 

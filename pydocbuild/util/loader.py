@@ -12,6 +12,6 @@ class PyRequest(InternalLoader) :
     def __init__(self) :
         pass
 
-    def load(self, url, *args) :
-        r = requests.get(url, *args)
+    def load(self, uri, *args) :
+        r = requests.get(uri, *args)
         return r.text

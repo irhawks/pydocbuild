@@ -3,15 +3,18 @@
 from .executor import *
 
 class Loader (Executor):
+    """
+    load的第一个参数必须被定义为URI
+    """
 
     def load(self, uri, args) :
         pass
 
 class ExternalLoader (ExternalExecutor) :
 
-    def load(self, path) :
+    def load(self, uri) :
 
-        self._process = subprocess.Popen([self._name] + [*self._args] + [path],
+        self._process = subprocess.Popen([self._name] + [*self._args] + [uri],
                 stdout=subprocess.PIPE,stdin=subprocess.PIPE)
         out = self._process.communicate()[0]
         self._process.stdin.close()
@@ -19,5 +22,5 @@ class ExternalLoader (ExternalExecutor) :
 
 class InternalLoader (InternalExecutor) :
 
-    def load(self, path) :
-        return self.execute(path)
+    def load(self, uri) :
+        return self.execute(uri)
