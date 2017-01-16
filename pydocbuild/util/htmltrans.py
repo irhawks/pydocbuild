@@ -1,3 +1,4 @@
+from pydocbuild.pipe.executor import *
 __doc__ = """
 使用HtmlParser来解析Html文档当中的内容，按照标准输出与标准输出的方式
 """
@@ -98,3 +99,45 @@ class HtmlTableToCsvCode (HtmlFilter) :
             table.replace_with(surrounding)
         
         return str(soup)
+
+from lxml import etree
+from lxml.html.clean import Cleaner
+
+class LxmlHtmlCleaner (InternalExecutor) :
+
+    def __init__(self, **args) :
+        if args : 
+            self._cleaner = Cleaner(**args)
+        else :
+            self._cleaner = Cleaner(style=True, 
+                    scripts=True,page_structure=False, 
+                    safe_attrs_only=False)
+
+    def clean_from(self, html) :
+        return self._cleaner.clean_html(html)
+
+
+from bs4 import BeautifulSoup as bs
+
+class InternalHtmlSelector(InternalExecutor) :
+    def __init__(self, method, pattern) :
+        self._pattern = pattern
+        self._method = method
+    
+    def select_from(self, html) :
+        """
+        只可以选择其中的一个元素
+        """
+        if (self._method == 'id')    :   
+            root = bs(html, "lxml")
+            return str( root.find(attrs={'id': self._pattern}) )
+        if (self._method == 'class') : 
+            root = bs(html, "lxml")
+            return str( root.find(attrs={'class': self._pattern}) )
+        if (self._method == 'css')   :   
+            root = bs(html, "lxml")
+            return str( root.select(self._pattern)[0] )
+        if (self._method == 'xpath')   :   
+            root = etree.HTML(html)
+            return etree.tostring(root.xpath(self._pattern)[0]).decode()
+        return None

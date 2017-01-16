@@ -49,40 +49,9 @@ def html_to_markdown(name, taskdep, **options) :
         task_html_generator 表示的是能够生成html的任务，我们需要从这个任务中提取result
         taskname是生成的任务名
     """
-    converter = options.get('converter', 
-            Pandoc("-f", "html", "-t", "markdown", "--wrap=none"))
-    flowdep = options.get('flowdep', taskdep[0])
-    return lift_process_to_task(name, converter, taskdep, flowdep=flowdep)
+    return generate_converter(name, taskdep, **options)
 
 
-def save_a_file(name, path, taskdep, **options) :
-
-    flowdep=options.get('flowdep', taskdep[0])
-    def save(content) :
-        open(path,'w').write(content[flowdep])
-
-    return {
-        'basename' : name,
-        'name' : name,
-        'actions' : [save],
-        'task_dep': taskdep,
-        'getargs' : {'content' : (flowdep, 'result'), },
-        'targets' : [path]
-    }
-
-
-# --------------------------------------------------------------------
-
-## get through selenium
-
-def selenium_get_a_page (session, url_pattern, topic, pattern, method) :
-    
-        """
-        首先使用Selenium获取，然后再Filter
-        """
-        e1 = session.get_element(url_pattern % topic)
-        e2 = SeleniumSelector(pattern, method).select_content_from(e1)
-        return {'result' : e2}
 
 def build_page_list(session, record) :
 
@@ -117,3 +86,19 @@ def build_web_to_mkd (session, record, savename) :
     yield html_to_markdown(converter_name, [generator_name])
     yield save_a_file(saver_name, savename, [converter_name])
 
+## get through selenium
+
+def get_a_page_with_selenium (session, uri, theme, pattern, method) :
+    
+        """
+        首先使用Selenium获取，然后再Filter。
+        应该生成一个任务类型。
+        uri + theme + pattern + method可以唯一地决定输入
+        """
+        e1 = session.get_element(uri % theme)
+        e2 = SeleniumSelector(pattern, method).select_content_from(e1)
+        return {'result' : e2}
+
+def get_a_page_with_requests (uri, theme, pattern, method) :
+
+    PyRequest().execute(uri)

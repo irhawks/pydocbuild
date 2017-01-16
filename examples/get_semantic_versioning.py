@@ -4,10 +4,10 @@
 import os
 import subprocess
 
-from pydocbuild.workflow import wrapper
-from pydocbuild.workflow import context
-from pydocbuild.workflow import filters
-from pydocbuild import taskgen
+from pydocbuild.util import *
+from pydocbuild.util.browser import *
+from pydocbuild.pipe import *
+import pydocbuild.task as taskgen
 
 ## 注意在retrieve的时候使用什么样的会话来retrieve
 ## 缺省就使用selenium

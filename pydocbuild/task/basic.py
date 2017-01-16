@@ -1,6 +1,3 @@
-
-from functools import reduce
-
 __doc__ = """
 能够生成task (yield a series of tasks) 的一些辅助函数
 
@@ -8,6 +5,12 @@ generator表示元任务生成器
 basic.py生成基本任务
 common.py生成常见任务
 """
+
+from .basic import *
+from pydocbuild.util.executor import Pandoc
+from pydocbuild.util.browser.selector import SeleniumSelector
+from functools import reduce
+
 
 
 def lift_process_to_task(name, process, taskdep, **options) :
@@ -58,3 +61,53 @@ def combine_result_list(name, taskdep_list) :
             (taskname, 'result')
                 for taskname in taskdep_list}
     }
+
+
+## -------------------------------------------------------------------
+
+## 加载/获取、转换/过滤、生成/保存
+
+
+def generate_converter(name, taskdep, **options) :
+
+    """ 
+        taskdep 是执行该程序之前应该执行的任务
+        task_html_generator 表示的是能够生成html的任务，我们需要从这个任务中提取result
+        taskname是生成的任务名
+    """
+    converter = options.get('converter', 
+            Pandoc("-f", "html", "-t", "markdown", "--wrap=none"))
+    flowdep = options.get('flowdep', taskdep[0])
+    return lift_process_to_task(name, converter, taskdep, flowdep=flowdep)
+
+def generate_filter(name, taskdep, **options) :
+	return generate_converter(name, taskdep, **options) :
+
+def generate_saver(name, path, taskdep, **options) :
+
+    flowdep=options.get('flowdep', taskdep[0])
+
+    def save(content) :
+        open(path,'w').write(content[flowdep])
+
+    return {
+        'basename' : name,
+        'name' : name,
+        'actions' : [save],
+        'task_dep': taskdep,
+        'getargs' : {'content' : (flowdep, 'result'), },
+        'targets' : [path]
+    }
+
+def generator_loader(name, loader, uri, taskdep, **options)
+
+	"""
+	loader是负责根据URI获取URI的语义内容的程序，URI是其唯一参数
+	"""
+
+	return {
+		'basename' : name,
+            	'name' : name,
+            	'actions' : [(loader, [], {'uri' : uri})],
+		'task_dep': taskdep
+                }

@@ -1,49 +1,61 @@
 
-## -------------------------------------------------------------------
-# 样例: 传给topic_metadata函数的内容
-# args = { 
-#     'url_pattern' :  "https://mirrors.tuna.tsinghua.edu.cn/help/%s",
-#     'topic_list' :["AOSP", "AUR","CocoaPods"
-#         , "anaconda","archlinux","archlinuxcn"
-#         ,"bananian","centos","chromiumos","cygwin"
-#         ,"docker","elpa","epel","fedora","git-repo"
-#         ,"gitlab-ce","gitlab-ci-multi-runner"
-#         ,"hackage","homebrew","homebrew-bottles"
-#         ,"linux-stable.git","linux.git","lxc-images"
-#         ,"mongodb","msys2","nodesource"
-#         ,"pybombs","pypi"
-#         ,"raspbian","repo-ck","repoforge","rpmfusion","rubygems"
-#         ,"tensorflow","termux","ubuntu","virtualbox","weave"],
-#     'filter': {'method' : 'id', 'pattern' : 'help-content'}
-#     }   
+__doc__ = """
+样例: 传给topic_metadata函数的内容
+args = { 
+    'url_pattern' :  "https://mirrors.tuna.tsinghua.edu.cn/help/%s",
+    'topic_list' :["AOSP", "AUR","CocoaPods"
+        , "anaconda","archlinux","archlinuxcn"
+        ,"bananian","centos","chromiumos","cygwin"
+        ,"docker","elpa","epel","fedora","git-repo"
+        ,"gitlab-ce","gitlab-ci-multi-runner"
+        ,"hackage","homebrew","homebrew-bottles"
+        ,"linux-stable.git","linux.git","lxc-images"
+        ,"mongodb","msys2","nodesource"
+        ,"pybombs","pypi"
+        ,"raspbian","repo-ck","repoforge","rpmfusion","rubygems"
+        ,"tensorflow","termux","ubuntu","virtualbox","weave"],
+    'filter': {'method' : 'id', 'pattern' : 'help-content'}
+    }   
+生成任务的顺序是，首先读入任务列表，如果是HTML类型的任务，那么就转换HTML。
+也就是说，关键还是我们需要告诉任务，何时我们得到任务类型的信息。
+比如任务类型是HTML->Markdown这样的类型。
+如果是这样的类型，我们就应该为这样的类型准备分析表达式。
+更具体地，这样的类型还会与具体网站相绑定。也就是说，一个任务类型并不能决定处理函数
+一个类型只能起到构造任务的作用。
 
+另外，也说明任务一般是聚集起来出现的。以Python字典的形式出现，也就是以
 
-## 进一步整理mirror的元数据，从元数据当中添加构造类型数据
+最好元数据可以直接从YAML文件当中读取，这样的话就不用每个文件再单独写出来了。
+"""
+
 def to_metadata (args) :
 
-        taskname_func = lambda topic : 'task_' + args['url_pattern'] % topic
-        args['taskname_func'] = taskname_func
+    """
+    进一步整理mirror的元数据，从元数据当中添加构造类型数据
+    """
 
-        # 在mirror当中添加task_list属性，表示获取相应topic的任务名
-        args['task_list'] = [args['taskname_func'](topic)
-            for topic in args['topic_list']]
-        return args
+    task_func = lambda topics: 'task_' + args['url_pattern'] % topics
+    args['taskname_func'] = task_func
 
-## 将数据变成是元数据的各个项目，每个项目作为单独的数据列表而出现。每次获取单独生成页面。
+    # 在mirror当中添加task_list属性，表示获取相应topic的任务名
+    args['task_list'] = [args['taskname_func'](topic)
+        for topic in args['topic_list']]
+    return args
+
 
 def to_separate_metadata_list(args) :
-
-        result = []
-        taskname_func = lambda topic : 'task_' + args['url_pattern'] % topic
-        args['taskname_func'] = taskname_func
-        #print(args)
-        for topic in args['topic_list'] :
-            result += [{'url_pattern' : args['url_pattern'],
-                'filter' : args['filter'], 
-                'topic_list' : [topic],
-                'task_list' : [args['taskname_func'](topic)],
-                'taskname_func' : args['taskname_func']}]
-        #print("结果")
-        #print(result)
-        return result       
-
+    """
+    将数据变成是元数据的各个项目，每个项目作为单独的数据列表而出现。每次获取单独生成页面。
+    """
+    result = []
+    task_func = lambda topics : 'task_' + args['url_pattern'] % topics
+    args['task_func'] = task_func
+    for topics in args['topicss'] :
+        result += [{'url_pattern' : args['url_pattern'],
+            'filter' : args['filter'], 
+            'topic_list' : [topic],
+            'task_list' : [args['taskname_func'](topic)],
+            'taskname_func' : args['taskname_func']}]
+    #print("结果")
+    #print(result)
+    return result       
