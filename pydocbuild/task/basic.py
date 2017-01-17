@@ -8,7 +8,8 @@ common.py生成常见任务
 
 from .basic import *
 from pydocbuild.util.executor import Pandoc
-from pydocbuild.util.browser.selector import SeleniumSelector
+from pydocbuild.util.loader import PyRequest
+
 from functools import reduce
 
 
@@ -22,7 +23,9 @@ def lift_process_to_task(name, process, taskdep, **options) :
 
     flowdep = options.get('flowdep', taskdep[0])
     def do_process(inflow) :
-        return {'result' : process.execute(inflow[flowdep])}
+
+        r = {'result' : process.execute(inflow[flowdep])}
+        return r
 
 
     return {
@@ -33,7 +36,7 @@ def lift_process_to_task(name, process, taskdep, **options) :
         'getargs' : {'inflow' : (flowdep, 'result')}
     }
 
-def combine_result_list(name, taskdep_list) :
+def combine_result_list(name, taskdep) :
 
     """
     该函数用来组合之前的若干任务的输出，将它们的stdout联结起来。
@@ -48,18 +51,18 @@ def combine_result_list(name, taskdep_list) :
 
     def combine(**keywords) :
 
-        prev_result_list = [keywords['result_'+t][t] for t in taskdep_list]
+        prev_result_list = [keywords['result_'+t][t] for t in taskdep]
 
-        return {'result' : reducer_builder(prev_result_list, "\n", "")}
+        return {'result' : reducer_builder(prev_result_list, "\n\n", "")}
 
     return {
         'basename' : name,
         'name' : name,
         'actions' : [ combine ],
-        'task_dep': taskdep_list,
+        'task_dep': taskdep,
         'getargs' : {'result_' + taskname :
             (taskname, 'result')
-                for taskname in taskdep_list}
+                for taskname in taskdep}
     }
 
 
@@ -81,33 +84,42 @@ def generate_converter(name, taskdep, **options) :
     return lift_process_to_task(name, converter, taskdep, flowdep=flowdep)
 
 def generate_filter(name, taskdep, **options) :
-	return generate_converter(name, taskdep, **options) :
+    
+    return generate_converter(name, taskdep, **options)
 
 def generate_saver(name, path, taskdep, **options) :
 
     flowdep=options.get('flowdep', taskdep[0])
 
-    def save(content) :
-        open(path,'w').write(content[flowdep])
+    save = options.get('saver'
+            , lambda path, content : open(path,'w').write(content))
+    def do_save(path, content) :
+        save(path, content[flowdep])
 
     return {
         'basename' : name,
         'name' : name,
-        'actions' : [save],
+        'actions' : [(do_save, [], {'path': path})],
         'task_dep': taskdep,
         'getargs' : {'content' : (flowdep, 'result'), },
         'targets' : [path]
     }
 
-def generator_loader(name, loader, uri, taskdep, **options)
+def generate_loader(name, uri, taskdep, **options) :
 
-	"""
-	loader是负责根据URI获取URI的语义内容的程序，URI是其唯一参数
-	"""
+    """
+    loader是负责根据URI获取URI的语义内容的程序，URI是其唯一参数
+    """
+    loader = options.get('loader', PyRequest(allow_redirects=True).load)
+    def do_load(uri) :
+        
+        r = {'result': loader(uri)}
+        print("LOADRESULT IS", r)
+        return r
 
-	return {
-		'basename' : name,
-            	'name' : name,
-            	'actions' : [(loader, [], {'uri' : uri})],
-		'task_dep': taskdep
-                }
+    return {
+        'basename' : name,
+        'name' : name,
+        'actions' : [(do_load, [], {'uri' : uri})],
+        'task_dep': taskdep
+        }

@@ -6,6 +6,7 @@ from pydocbuild.util.executor import Pandoc
 from pydocbuild.util.browser.selector import SeleniumSelector
 
 __doc__ = """
+注：***此文件现在已过期不用
 如果抽象起来，应该抽象一个名为TaskGenenerator的类别。
 它们完成的任务是TaskGeneration，也就是任务生成。完成任务的过程称为Generate。
 
@@ -42,6 +43,7 @@ TaskGenerator = ShellTaskGenerator
 
 ## 使用缺省的pandoc转换器把HTML文件转换成markdown文件
 
+
 def html_to_markdown(name, taskdep, **options) :
 
     """ 
@@ -71,25 +73,9 @@ def build_page_list(session, record) :
             )],
         }
 
-def build_web_to_mkd (session, record, savename) :
-
-    """
-    将整个流程都进行转换
-    """
-
-    all_topic = reduce (lambda x, y : x + "," + y, record['topic_list'], "")
-    generator_name = 'HTML:' + record['url_pattern'] + all_topic
-    converter_name = 'HTML->mkd:' + record['url_pattern'] + all_topic
-    saver_name = 'Save mkd:' + savename + record['url_pattern'] + all_topic
-
-    yield build_page_list(session, record) 
-    yield combine_result_list(generator_name, record['task_list'])
-    yield html_to_markdown(converter_name, [generator_name])
-    yield save_a_file(saver_name, savename, [converter_name])
-
 ## get through selenium
 
-def get_a_page_with_selenium (session, uri, theme, pattern, method) :
+def get_a_page_with_selenium (session, metadata) :
     
         """
         首先使用Selenium获取，然后再Filter。
@@ -99,7 +85,3 @@ def get_a_page_with_selenium (session, uri, theme, pattern, method) :
         e1 = session.get_element(uri % theme)
         e2 = SeleniumSelector(pattern, method).select_content_from(e1)
         return {'result' : e2}
-
-def get_a_page_with_requests (uri, theme, pattern, method) :
-
-    PyRequest().execute(uri)

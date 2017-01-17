@@ -141,3 +141,6 @@ class InternalHtmlSelector(InternalExecutor) :
             root = etree.HTML(html)
             return etree.tostring(root.xpath(self._pattern)[0]).decode()
         return None
+
+    def execute(self, html) :
+        return self.select_from(html)

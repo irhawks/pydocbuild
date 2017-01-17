@@ -9,9 +9,18 @@ class Cat (ExternalLoader) :
 
 class PyRequest(InternalLoader) :
 
-    def __init__(self) :
-        pass
+    def __init__(self, **opts) :
+        self._opts = opts
 
-    def load(self, uri, *args) :
-        r = requests.get(uri, *args)
+    def load(self, uri) :
+        r = requests.get(uri, **(self._opts))
         return r.text
+
+class PhantomjsRequestUrl(InternalLoader) :
+    """
+    需要selenium之类的辅助，优点在于可以执行javascript
+    """
+    def __init__(self, session) :
+        self._session = session
+    def load(self, uri) :
+        return self._session.get_content(uri)
