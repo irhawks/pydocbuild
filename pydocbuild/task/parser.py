@@ -34,7 +34,7 @@ def to_metadata (args) :
     进一步整理mirror的元数据，从元数据当中添加构造类型数据
     """
 
-    taskfunc = lambda theme: 'task_' + args['pattern'] % theme
+    taskfunc = lambda theme: args['pattern'] % theme
     args['taskfunc'] = taskfunc
 
     # 在mirror当中添加task_list属性，表示获取相应topic的任务名
