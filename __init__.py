@@ -5,4 +5,4 @@
 ## 定义模块，只要使用文本编辑器，把一些python代码输入到文本中，然后以.py为后缀名进行保存，任何此类文件都会被认为是python模块。
 ## 一个模块顶层定义的变量，会自动变成模块的属性。例如：
 __author__ = 'irhawks'
-__all__ = ["workflow", 'helpers']
+__all__ = ["pydocbuild"]

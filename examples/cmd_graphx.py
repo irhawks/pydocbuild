@@ -3,7 +3,12 @@
 from __future__ import print_function
 
 from _functools import partial
-from _version import (__version__, __updated__)  # @UnusedImport
+
+#from _version import (__version__, __updated__)  # @UnusedImport
+"""Authoritative project's version-info"""
+__version__ = "0.1-dev2"
+__updated__ = "2015-03-29 03:52:17"
+
 from doit import cmd_base
 from doit.cmd_base import DoitCmdBase
 from doit.exceptions import InvalidCommand

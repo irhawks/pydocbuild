@@ -14,6 +14,7 @@ SemanticVersioningWebInfo = {
     'themes' :["zh-CN", "en"],
     'filter': {'method' : 'id', 'pattern' : 'spec'}
 }
+
 SV = task.to_metadata(SemanticVersioningWebInfo)
 
 from pydocbuild.util.browser import *
@@ -27,22 +28,6 @@ def task_retrieve_sv_pages() :
 
 
 ## ----------------------------------------------------------------------
-
-from doit.reporter import ConsoleReporter
-
-class MyReporter(ConsoleReporter):
-    def execute_task(self, task):
-        self.outstream.write('Reporter : Running --> %s\n' % task.title())
-        self.outstream.write('Reporter : %s depends --> %s\n' % (task.title(), task.task_dep) )
-
-DOIT_CONFIG = {#'default_tasks': ['t3']
-    'backend': 'json',
-    'reporter': MyReporter,
-    'status' : True,
-    'continue': True,
-    'verbosity': 2
-}
-
 
 if __name__ == '__main__':
 

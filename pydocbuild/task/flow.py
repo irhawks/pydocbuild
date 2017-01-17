@@ -15,7 +15,7 @@ def custom_build_flow(metadata, **kwargs) :
     custom_saver = kwargs.get('saver'
             , lambda path, content : open(path,'w').write(content))
     custom_converter = kwargs.get('converter'
-            , Pandoc("-f", "html", "-t", "commonmark", "--wrap=none"))
+            , Pandoc("-f", "html", "-t", "markdown", "--wrap=none"))
 
     # Every item should be retrieved separately
     for theme in metadata['themes'] :
