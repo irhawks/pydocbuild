@@ -1,4 +1,5 @@
 from pydocbuild.pipe.executor import *
+
 __doc__ = """
 使用HtmlParser来解析Html文档当中的内容，按照标准输出与标准输出的方式
 """
@@ -144,3 +145,8 @@ class InternalHtmlSelector(InternalExecutor) :
 
     def execute(self, html) :
         return self.select_from(html)
+
+class  StripHtmlEntities(Sed) :
+    
+    def __init__(self) :
+        super.__init__("-e", "s/&nbsp;/,/g")

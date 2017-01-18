@@ -97,3 +97,15 @@ class Pipe (ExternalExecutor) :
         os.write(w, content.encode())
         os.close(w)
         subprocess.check_call(self._command, stdin=r)
+
+
+## -------------------------------------------------------------------
+
+class IdentityExecutor(InternalExecutor) :
+
+    def __init__(self) : 
+        pass
+    def execute(self, content) :
+        return content
+    def filter(self, content) :
+        return content
