@@ -29,3 +29,10 @@ class DefaultPandoc(Executor) :
     """
     def __init__(self) :
         super().__init__('pandoc', "-f", "html", "-t", "markdown", "--wrap=none")
+
+class AddTopString(InternalExecutor) : 
+    """
+    在字符流的头部添加一系列的字符串，类似于Pandoc文档的标题
+    """
+    def __init__(self, string) :
+        super().__init__(lambda content : string + content)

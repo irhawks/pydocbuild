@@ -114,7 +114,6 @@ def generate_loader(name, uri, taskdep, **options) :
     def do_load(uri) :
         
         r = {'result': loader(uri)}
-        print("LOADRESULT IS", r)
         return r
 
     return {

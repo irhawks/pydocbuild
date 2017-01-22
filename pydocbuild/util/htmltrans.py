@@ -1,4 +1,5 @@
-from pydocbuild.pipe.executor import *
+
+from pydocbuild.util.executor import *
 
 __doc__ = """
 使用HtmlParser来解析Html文档当中的内容，按照标准输出与标准输出的方式

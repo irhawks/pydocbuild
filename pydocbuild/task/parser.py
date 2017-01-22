@@ -28,14 +28,25 @@ args = {
 最好元数据可以直接从YAML文件当中读取，这样的话就不用每个文件再单独写出来了。
 """
 
+import re
+
+## taskfunc，任务名，savefunc，保存名。
+## 任务名其实是依赖于网站的。比如维基，我们希望以后缀.md结尾。
+## 这个时候，要求具有定制网站保存名的能力
+
 def to_metadata (args) :
 
     """
     进一步整理mirror的元数据，从元数据当中添加构造类型数据
     """
 
-    taskfunc = lambda theme: args['pattern'] % theme
-    args['taskfunc'] = taskfunc
+    taskfunc = lambda theme: re.sub(r'[=]', r'_', args['pattern'] % theme)
+    savefunc = lambda theme: re.sub(r'[=]', r'_', theme) + ".md"
+    args['taskfunc'] = args.get('taskfunc', taskfunc)
+    args['savefunc'] = args.get('savefunc', savefunc)
+    args['savename'] = args['savename'] \
+            if 'savename' in args.keys() else 'download/'+savefunc(themes[0])
+
 
     # 在mirror当中添加task_list属性，表示获取相应topic的任务名
     args['task_list'] = [args['taskfunc'](theme)
@@ -48,11 +59,15 @@ def to_separate_metadata_list(args) :
     将数据变成是元数据的各个项目，每个项目作为单独的数据列表而出现。每次获取单独生成页面。
     """
     result = []
-    taskfunc = lambda theme : args['pattern'] % theme
-    args['taskfunc'] = taskfunc
+    taskfunc = lambda theme: re.sub(r'[=]', r'_', args['pattern'] % theme)
+    savefunc = lambda theme: re.sub(r'[=]', r'_', theme) + '.md'
+    args['taskfunc'] = args.get('taskfunc', taskfunc)
+    args['savefunc'] = args.get('savefunc', savefunc)
     for theme in args['themes'] :
         result += [{'pattern' : args['pattern'],
-            'filter' : args['filter'], 
+            'filter' : args['filter'] if 'filter' in args.keys() else None,
             'themes' : [theme],
-            'taskfunc' : args['taskfunc']}]
-    return result       
+            'taskfunc' : args['taskfunc'],
+            'savename' : savefunc(theme)
+            }]
+    return result
