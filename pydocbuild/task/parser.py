@@ -48,12 +48,11 @@ def to_separate_metadata_list(args) :
     将数据变成是元数据的各个项目，每个项目作为单独的数据列表而出现。每次获取单独生成页面。
     """
     result = []
-    taskfunc = lambda theme : 'task_' + args['url_pattern'] % theme
+    taskfunc = lambda theme : args['pattern'] % theme
     args['taskfunc'] = taskfunc
     for theme in args['themes'] :
         result += [{'pattern' : args['pattern'],
             'filter' : args['filter'], 
             'themes' : [theme],
-            'task_list' : [args['taskfunc'](theme)],
             'taskfunc' : args['taskfunc']}]
     return result       
