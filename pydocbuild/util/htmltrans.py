@@ -140,7 +140,7 @@ class InternalHtmlSelector(InternalExecutor) :
             root = bs(html, "lxml")
             return str( root.select(self._pattern)[0] )
         if (self._method == 'xpath')   :   
-            root = etree.HTML(html)
+            root = etree.HTML(html.encode('utf-8'))
             return etree.tostring(root.xpath(self._pattern)[0]).decode()
         return None
 

@@ -116,7 +116,8 @@ def build_generic_wikitext(metadata, **kwargs) :
     yield simple_webpage_build(metadata
             , converter= ComposeExecutor(
                 Pandoc("-f", "mediawiki", "-t", "markdown", "--wrap=none"),
-                AddTopString("# " + metadata['themes'][0] + '\n\n')
+                AddTopString("# " + metadata['themes'][0] + '\n\n'),
+                StripFigures()
                 )
             , filter=IdentityExecutor()
             , **kwargs

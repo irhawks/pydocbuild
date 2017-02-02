@@ -9,9 +9,8 @@ def custom_build_flow(metadata, **kwargs) :
 
     custom_loader = kwargs.get('loader'
             , PyRequest(allow_redirects=True).load)
-    custom_filter = kwargs['filter'] \
-            if kwargs['filter'] \
-            else InternalHtmlSelector(**metadata['filter'])
+    custom_filter = kwargs.get('filter'
+            , InternalHtmlSelector(**metadata['filter']))
     ## 注意filter因此必须重载execute方法，虽然是filter，标准方法还是executor
     custom_saver = kwargs.get('saver'
             , lambda path, content : open(path,'w').write(content))
