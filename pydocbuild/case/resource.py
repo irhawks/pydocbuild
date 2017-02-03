@@ -1,6 +1,7 @@
 from pydocbuild.util.executor import *
 from pydocbuild.pipe.executor import *
 from pydocbuild.util.markdowntrans import *
+from pydocbuild.util import htmltrans
 from .generic import *
 
 
@@ -111,14 +112,18 @@ def build_wikipedia_wikitext(metadata, **kwargs) :
             , **kwargs
             )
 
+
 def build_generic_wikitext(metadata, **kwargs) :
 
     yield simple_webpage_build(metadata
             , converter= ComposeExecutor(
-                Pandoc("-f", "mediawiki", "-t", "markdown", "--wrap=none"),
+                Pandoc("-f", "mediawiki", "-t", "html", "--wrap=none"),
+                htmltrans.HtmlTableToCsvCode(),
+                Pandoc("-f", "html", "-t", "markdown", "--wrap=none"),
                 AddTopString("# " + metadata['themes'][0] + '\n\n'),
                 StripFigures()
                 )
             , filter=IdentityExecutor()
-            , **kwargs
+            , path='wikipage/%s' % metadata['savename']
+            #, **kwargs
             )

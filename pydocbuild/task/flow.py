@@ -3,14 +3,19 @@ from pydocbuild.util.executor import Pandoc
 from pydocbuild.util.loader import PyRequest
 from pydocbuild.util.htmltrans import InternalHtmlSelector
 
+from pydocbuild.pipe.executor import IdentityExecutor
+
 from pydocbuild.task.basic import *
 
 def custom_build_flow(metadata, **kwargs) :
 
     custom_loader = kwargs.get('loader'
             , PyRequest(allow_redirects=True).load)
-    custom_filter = kwargs.get('filter'
+    if metadata['filter'] :
+        custom_filter = kwargs.get('filter'
             , InternalHtmlSelector(**metadata['filter']))
+    else :
+        custom_filter = kwargs.get('filter', IdentityExecutor())
     ## 注意filter因此必须重载execute方法，虽然是filter，标准方法还是executor
     custom_saver = kwargs.get('saver'
             , lambda path, content : open(path,'w').write(content))
@@ -31,7 +36,7 @@ def custom_build_flow(metadata, **kwargs) :
                 )
         
     path = kwargs.get('path', 'download/default.md')
-    themes = reduce (lambda x, y : x + "|" + y, metadata['themes'], "")
+    themes = reduce (lambda x, y : x + "" + y, metadata['taskfunc'](metadata['themes']), "")
     ## 注意pattern和themes里面可能含有不能作为任务名的字符，比如等号。
     combinator_name = 'COMBINE ' + themes + " FOR " + metadata['savename']
     converter_name  = 'CONVERT ' + themes + " FOR " + metadata['savename']

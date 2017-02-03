@@ -60,7 +60,9 @@ class HtmlTableToCsvCode (HtmlFilter) :
     def expand_table_datamodel(model) :
         def expand_row_datamodel():
             pass
-    
+
+    def execute(self, content) :
+        return self.filter(content)
 
     def filter(self, content) :
 

@@ -14,8 +14,11 @@ class PyRequest(InternalLoader) :
 
     def load(self, uri) :
         r = requests.get(uri, **(self._opts))
-        if r.encoding=='ISO-8859-1' : r.encoding='GB18030'
-        else: r.encoding='utf-8'
+        ## 不使用这个方法进行判断了，使用apparent_encoding函数
+        #if r.encoding=='ISO-8859-1' : r.encoding='GB18030'
+        #else: r.encoding='utf-8'
+        # 见<http://liguangming.com/python-requests-ge-encoding-from-headers>
+        r.encoding = r.apparent_encoding
         return r.text
 
 class PhantomjsRequestUrl(InternalLoader) :
