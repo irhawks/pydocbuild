@@ -1,1 +1,9 @@
-{}
+{
+  "tests/unittest/test_case_baidubaike.py": true,
+  "tests/unittest/test_case_iep.py": true,
+  "tests/unittest/test_case_stanford_plato.py": true,
+  "tests/unittest/test_util_browsers.py": true,
+  "tests/unittest/test_util_htmltrans.py": true,
+  "tests/unittest/test_util_loaders.py": true,
+  "tests/unittest/test_util_markdowntrans.py": true
+}

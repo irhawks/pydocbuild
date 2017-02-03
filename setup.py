@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 
 setup(name='pydocbuild',  #打包后的包文件名  
-    version='0.1.5',    
+    version='0.1.6',    
     description='automatizie my notebook creations',    
     author='irhawks',
     author_email='irahwks@163.com',    
