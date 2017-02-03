@@ -12,6 +12,8 @@ from pydocbuild.util.loader import PyRequest
 
 from functools import reduce
 
+from doit.tools import run_once
+
 
 
 def lift_process_to_task(name, process, taskdep, **options) :
@@ -120,5 +122,6 @@ def generate_loader(name, uri, taskdep, **options) :
         'basename' : name,
         'name' : name,
         'actions' : [(do_load, [], {'uri' : uri})],
-        'task_dep': taskdep
+        'task_dep': taskdep,
+        'uptodate': [run_once]
         }

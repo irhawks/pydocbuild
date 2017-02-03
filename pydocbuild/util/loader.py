@@ -14,7 +14,8 @@ class PyRequest(InternalLoader) :
 
     def load(self, uri) :
         r = requests.get(uri, **(self._opts))
-        r.encoding='utf-8'
+        if r.encoding=='ISO-8859-1' : r.encoding='GB18030'
+        else: r.encoding='utf-8'
         return r.text
 
 class PhantomjsRequestUrl(InternalLoader) :

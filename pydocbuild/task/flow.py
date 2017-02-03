@@ -30,7 +30,7 @@ def custom_build_flow(metadata, **kwargs) :
                 , converter=custom_filter
                 )
         
-    path = kwargs.get('path', 'autofile/default.md')
+    path = kwargs.get('path', 'download/default.md')
     themes = reduce (lambda x, y : x + "|" + y, metadata['themes'], "")
     ## 注意pattern和themes里面可能含有不能作为任务名的字符，比如等号。
     combinator_name = 'COMBINE ' + themes + " FOR " + metadata['savename']

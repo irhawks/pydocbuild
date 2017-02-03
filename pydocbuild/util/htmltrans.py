@@ -140,7 +140,9 @@ class InternalHtmlSelector(InternalExecutor) :
             root = bs(html, "lxml")
             return str( root.select(self._pattern)[0] )
         if (self._method == 'xpath')   :   
-            root = etree.HTML(html.encode('utf-8'))
+            root = etree.HTML(html.encode('utf-8'), parser=etree.HTMLParser(encoding='utf-8'))
+            ## 注意保持所使用的编码的一致
+            ## http://www.cnblogs.com/xieqiankun/p/lxmlencoding.html
             return etree.tostring(root.xpath(self._pattern)[0]).decode()
         return None
 
@@ -150,4 +152,26 @@ class InternalHtmlSelector(InternalExecutor) :
 class  StripHtmlEntities(Sed) :
     
     def __init__(self) :
-        super.__init__("-e", "s/&nbsp;/,/g")
+        super().__init__("-e", "s/&nbsp;/,/g")
+
+
+def innerHTMLLxmlVersion(node):
+    return ''.join([etree.tostring(child).decode() for child in node])
+
+def innerHTMLbs4Version(node) :
+    return "".join([str(x) for x in node.contents]) 
+
+class StripHtmlTableTag(HtmlFilter): 
+
+    def __init__(self, **args) :
+        self._args = args
+
+    def filter(self, content) :
+        return innerHTML(content)
+
+    def execute(self, content) : 
+        soup = BeautifulSoup(content, "lxml")
+        for table in soup.findAll("table"):
+            target = "".join([str(x) for x in table.contents]) 
+            table.replace_with(BeautifulSoup(target, "lxml"))
+        return soup.prettify()
