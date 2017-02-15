@@ -101,7 +101,9 @@ https://www.mediawiki.org/wiki/API:Parsing_wikitext，提供了相应的API函�
 """
 
 converter_wikipedia_wikitext = ComposeExecutor(
-        Pandoc("-f", "mediawiki", "-t", "commonmark", "--wrap=none")
+        Pandoc("-f", "mediawiki", "-t", "html", "--wrap=none")
+        , StripHtmlTableTag()
+        , Pandoc("-f", "html", "-t", "commonmark", "--wrap=none")
         , StripFigures())
 
 def build_wikipedia_wikitext(metadata, **kwargs) :

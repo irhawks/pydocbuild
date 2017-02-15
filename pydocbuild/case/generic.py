@@ -18,8 +18,8 @@ def simple_selenium_build (session, metadata, **kwargs) :
             Pandoc("-f", "html", "-t", "commonmark", "--wrap=none"),
             Pandoc("-f", "commonmark", "-t", "markdown", "--wrap=none"),
             StripFigures()))
-    yield task.custom_build_flow(Task[t]
-        , path='download/%s' % Task[t]['savename']
+    yield task.custom_build_flow(metadata
+        , path='download/%s' % metadata['savename']
         , converter=converter
         , loader=loader.PhantomjsRequestUrl(session).load, **kwargs)
 
