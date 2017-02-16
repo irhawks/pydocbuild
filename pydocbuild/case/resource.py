@@ -123,6 +123,7 @@ def build_generic_wikitext(metadata, **kwargs) :
                 htmltrans.HtmlTableToCsvCode(),
                 Pandoc("-f", "html", "-t", "markdown", "--wrap=none"),
                 AddTopString("# " + metadata['themes'][0] + '\n\n'),
+                StripHeadBlanks(),
                 StripFigures()
                 )
             , filter=IdentityExecutor()

@@ -169,11 +169,13 @@ class StripHtmlTableTag(HtmlFilter):
         self._args = args
 
     def filter(self, content) :
-        return innerHTML(content)
+        return self.execute(content)
 
     def execute(self, content) : 
         soup = BeautifulSoup(content, "lxml")
-        for table in soup.findAll("table"):
-            target = "".join([str(x) for x in table.contents]) 
-            table.replace_with(BeautifulSoup(target, "lxml"))
+        while soup.findAll("table") :
+            for table in soup.findAll("table"):
+                if not table.findAll("table"):
+                    target = "".join([str(x) for x in table.contents]) 
+                    table.replace_with(BeautifulSoup(target, "lxml"))
         return soup.prettify()
