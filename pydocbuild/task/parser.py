@@ -69,6 +69,6 @@ def to_separate_metadata_list(args) :
             'filter' : args['filter'] if 'filter' in args.keys() else None,
             'themes' : [theme],
             'taskfunc' : args['taskfunc'],
-            'savename' : savefunc(theme)
+            'savename' : args['savefunc'](theme)
             }]
     return result
