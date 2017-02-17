@@ -18,3 +18,8 @@ class StripTailBlanks (Sed) :
 
     def __init__(self) :
         super().__init__("-e", r's/[ \n\t\\]\+$//')
+
+class StripDeepLists (Sed) :
+
+    def __init__(self) :
+        super().__init__("-e", r's/^-   \(-   \)\+/- /', "-e", r's/^\([0-9]\.  \)\([0-9]\.  \)\+/\1/')
