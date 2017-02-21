@@ -145,7 +145,10 @@ class InternalHtmlSelector(InternalExecutor) :
             root = etree.HTML(html.encode('utf-8'), parser=etree.HTMLParser(encoding='utf-8'))
             ## 注意保持所使用的编码的一致
             ## http://www.cnblogs.com/xieqiankun/p/lxmlencoding.html
-            return etree.tostring(root.xpath(self._pattern)[0]).decode()
+            #print(self._pattern)
+            #print(etree.tounicode(root))
+            #print(etree.tounicode(root.xpath(self._pattern)[0]))
+            return etree.tounicode(root.xpath(self._pattern)[0])
         return None
 
     def execute(self, html) :
@@ -179,3 +182,31 @@ class StripHtmlTableTag(HtmlFilter):
                     target = "".join([str(x) for x in table.contents]) 
                     table.replace_with(BeautifulSoup(target, "lxml"))
         return soup.prettify()
+
+class StripHtmlTableTagWithRe(HtmlFilter): 
+
+    def __init__(self, **args) :
+        self._args = args
+
+    def filter(self, content) :
+        return self.execute(content)
+
+    def execute(self, content) : 
+        v=re.sub(r'<table[^<]*>', '', content)
+        return re.sub(r'</table>', '', v)
+
+## 将tr/td标记变成ul/li标记，每个li代表一个标签项，一个li变成一个tr吧
+class HtmlTrTdTagToUlLi(HtmlFilter): 
+
+    def __init__(self, **args) :
+        self._args = args
+
+    def filter(self, content) :
+        return self.execute(content)
+
+    def execute(self, content) : 
+        v=re.sub(r'<table[^<]*>', '<ul>', content)
+        w=re.sub(r'</table>', '</ul>', v)
+        x=re.sub(r'<tr', '<li', w)
+        y=re.sub(r'</tr>', '</li>', x)
+        return y
