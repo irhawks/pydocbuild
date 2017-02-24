@@ -52,6 +52,20 @@ def build_baidu_baike_html(metadata, **kwargs) :
 
 ## -------------------------------------------------------------------
 
+__iep_doc__ = r"""
+" vim脚本如下，表示的是将HTML文档中的多余部分去掉
+" <http://www.iep.utm.edu/stoicism/>哲学互联网百科的parser
+:%s/<.*\n*.\n.*\n.*\n<\/article>\(.*\n\)*//
+
+" vim当中可以使用特定行来替换
+:/^<!--\[if IE 7.*/,/^<div class="entry-content">$/s/.*\n/
+:%s/\[\]()\s*//
+
+" 去掉首行的列表转义
+:%s/^\\\((\d\+)\)/\1/
+"""
+
+
 converter_iep_html = ComposeExecutor(
         Pandoc("-f", "html", "-t", "commonmark", "--wrap=none"),
         Pandoc("-f", "commonmark", "-t", "markdown", "--wrap=none"),
@@ -69,9 +83,29 @@ def build_iep_html(metadata, **kwargs) :
 
 ## -------------------------------------------------------------------
 
-desc = """
-适用于斯坦福大学哲学百科全书的IEP解析器
+__doc_plato_stanford__ = r"""
+适用于斯坦福大学哲学百科全书的SEP解析器
 https://plato.stanford.edu/entries/computing-history/
+" 处理stanford的学术百科
+" :%s/[.\n]\+\(.\+\n========\+\)/\2/
+:/^<!--\[if lt IE 7*/,/^<!--DO NOT MODIFY THIS LINE AND ABOVE-->/d
+:%s/^<!--.*-->\n//
+:%s/^<div class="menu-block">\(.*\n\)*//g
+:%s/\n<div id="\(.*\)">\n/^M/
+:%s/^<\/div>$/^M/
+:%s/\n<div class="\(.*\)">\n/^M/
+:%s/\n\n\n*/^M^M/
+
+" 处理掉列表的错误
+:%s/^>\s\+ --\+ ----\+$//
+:%s/^>$//
+
+" 转换数学公式(行内公式与行间公式都转换
+:%s/\\\\[()]/$/g
+:%s/\\\\\\\[/$$/g
+:%s/\\\\\\\]/$$/g
+:%s/\\\([\^_]\)/\1/g
+:%s/\\\\/\\/g
 """
 
 converter_stanford_plato_html = ComposeExecutor(
@@ -131,3 +165,8 @@ def build_generic_wikitext(metadata, **kwargs) :
             , path='wikipage/%s' % metadata['savename']
             #, **kwargs
             )
+
+
+## -------------------------------------------------------------------
+
+## -------------------------------------------------------------------

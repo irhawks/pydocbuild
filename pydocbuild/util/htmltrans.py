@@ -1,4 +1,3 @@
-
 from pydocbuild.util.executor import *
 
 __doc__ = """
