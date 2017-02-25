@@ -129,26 +129,29 @@ class InternalHtmlSelector(InternalExecutor) :
     
     def select_from(self, html) :
         """
-        只可以选择其中的一个元素
+        只可以选择其中的一个元素。如果分析不成功，应该给出一个警告才对
         """
-        if (self._method == 'id')    :   
-            root = bs(html, "lxml")
-            return str( root.find(attrs={'id': self._pattern}) )
-        if (self._method == 'class') : 
-            root = bs(html, "lxml")
-            return str( root.find(attrs={'class': self._pattern}) )
-        if (self._method == 'css')   :   
-            root = bs(html, "lxml")
-            return str( root.select(self._pattern)[0] )
-        if (self._method == 'xpath')   :   
-            root = etree.HTML(html.encode('utf-8'), parser=etree.HTMLParser(encoding='utf-8'))
-            ## 注意保持所使用的编码的一致
-            ## http://www.cnblogs.com/xieqiankun/p/lxmlencoding.html
-            #print(self._pattern)
-            #print(etree.tounicode(root))
-            #print(etree.tounicode(root.xpath(self._pattern)[0]))
-            return etree.tounicode(root.xpath(self._pattern)[0])
-        return None
+        try :
+            if (self._method == 'id')    :   
+                root = bs(html, "lxml")
+                return str( root.find(attrs={'id': self._pattern}) )
+            if (self._method == 'class') : 
+                root = bs(html, "lxml")
+                return str( root.find(attrs={'class': self._pattern}) )
+            if (self._method == 'css')   :   
+                root = bs(html, "lxml")
+                return str( root.select(self._pattern)[0] )
+            if (self._method == 'xpath')   :   
+                root = etree.HTML(html.encode('utf-8'), parser=etree.HTMLParser(encoding='utf-8'))
+                ## 注意保持所使用的编码的一致
+                ## http://www.cnblogs.com/xieqiankun/p/lxmlencoding.html
+                #print(self._pattern)
+                #print(etree.tounicode(root))
+                #print(etree.tounicode(root.xpath(self._pattern)[0]))
+                return etree.tounicode(root.xpath(self._pattern)[0])
+            return ""
+        except :
+            return ""
 
     def execute(self, html) :
         return self.select_from(html)
