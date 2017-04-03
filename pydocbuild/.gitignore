@@ -1,0 +1,12 @@
+*.swp
+*driver.log
+.doit*
+
+__pycache__
+
+dist/*
+build
+*.egg-info
+.tox
+docs
+doc

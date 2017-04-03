@@ -1,0 +1,4 @@
+doit==0.30.0
+lxml==3.6.4
+selenium==3.0.2
+chardet
