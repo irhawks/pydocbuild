@@ -41,7 +41,7 @@ def to_metadata (args) :
     """
 
     taskfunc = lambda theme: re.sub(r'[=]', r'_', args['pattern'] % theme)
-    savefunc = lambda theme: re.sub(r'[=:/,\']', r'_', theme) + ".md"
+    savefunc = lambda theme: re.sub(r'[=:/,\'\(\)]', r'_', theme) + ".md"
     args['taskfunc'] = args.get('taskfunc', taskfunc)
     args['savefunc'] = args.get('savefunc', savefunc)
     args['savename'] = args['savename'] \
@@ -61,7 +61,7 @@ def to_separate_metadata_list(args) :
     result = []
     taskfunc = lambda theme: re.sub(r'[=]', r'_', args['pattern'] % theme)
     #savefunc = lambda theme: re.sub(r'[=]', r'_', theme) + '.md'
-    savefunc = lambda theme: re.sub(r'[=:/,\']', r'_', theme) + ".md"
+    savefunc = lambda theme: re.sub(r'[=:/,\'\(\)]', r'_', theme) + ".md"
     args['taskfunc'] = args.get('taskfunc', taskfunc)
     args['savefunc'] = args.get('savefunc', savefunc)
     for theme in args['themes'] :
