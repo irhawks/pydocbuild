@@ -8,7 +8,8 @@ from pydocbuild.pipe.executor import ComposeExecutor
 def simple_webpage_build (metadata, **kwargs) : 
 
     kwargs['path'] = kwargs.get('path', 'download/%s' % metadata['savename'])
-    kwargs['loader'] = kwargs.get('loader', loader.PyRequest().load)
+    header = {'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:32.0) Gecko/20100101 Firefox/32.0',}
+    kwargs['loader'] = kwargs.get('loader', loader.PyRequest(headers=header).load)
     yield task.custom_build_flow(metadata, **kwargs)
 
 
