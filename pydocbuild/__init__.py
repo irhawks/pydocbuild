@@ -1,8 +1,4 @@
-
-## 偶尔可以看到有些人写的包下面还会有一个__init__.py，它的作用是在导入包时首先执行的。
-## 也有时候会看到 .if __name__ == "__main__" 语句，它的作用就是当此文件没有被作为导入的文件使用时执行 if 语句块里的程序。
-
-## 定义模块，只要使用文本编辑器，把一些python代码输入到文本中，然后以.py为后缀名进行保存，任何此类文件都会被认为是python模块。
-## 一个模块顶层定义的变量，会自动变成模块的属性。例如：
-__author__ = 'irhawks'
-__all__ = ["pydocbuild"]
+from .task import *
+from .util import *
+from .case import *
+from .pipe import *
