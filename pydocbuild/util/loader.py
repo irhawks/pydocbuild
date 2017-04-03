@@ -1,6 +1,7 @@
 from pydocbuild.pipe.loader import *
 
 import requests
+import chardet
 
 class Cat (ExternalLoader) :
 
@@ -18,8 +19,10 @@ class PyRequest(InternalLoader) :
         #if r.encoding=='ISO-8859-1' : r.encoding='GB18030'
         #else: r.encoding='utf-8'
         # 见<http://liguangming.com/python-requests-ge-encoding-from-headers>
-        r.encoding = r.apparent_encoding
-        return r.text
+        #r.encoding = r.apparent_encoding
+        b = r.content
+        encoding = chardet.detect(b)['encoding']
+        return b.decode(encoding)
 
 class PhantomjsRequestUrl(InternalLoader) :
     """
