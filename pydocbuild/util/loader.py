@@ -22,7 +22,10 @@ class PyRequest(InternalLoader) :
         #r.encoding = r.apparent_encoding
         b = r.content
         encoding = chardet.detect(b)['encoding']
-        return b.decode(encoding)
+        if encoding == 'gb2312' :
+          return b.decode('GB18030')
+        else :
+          return b.decode(encoding)
 
 class PhantomjsRequestUrl(InternalLoader) :
     """
@@ -30,5 +33,5 @@ class PhantomjsRequestUrl(InternalLoader) :
     """
     def __init__(self, session) :
         self._session = session
-    def load(self, uri) :
-        return self._session.get_content(uri)
+    def load(self, uri, timeout = 10) :
+        return self._session.get_content(uri, timeout=timeout)

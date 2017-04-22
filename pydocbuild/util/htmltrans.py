@@ -212,3 +212,16 @@ class HtmlTrTdTagToUlLi(HtmlFilter):
         x=re.sub(r'<tr', '<li', w)
         y=re.sub(r'</tr>', '</li>', x)
         return y
+## 将HTML当中的svg图片以code的形式保存一来
+class SvgTagToCodeTag(HtmlFilter): 
+
+    def __init__(self, **args) :
+        self._args = args
+
+    def filter(self, content) :
+        return self.execute(content)
+
+    def execute(self, content) : 
+        x=re.sub(r'<svg ', '<pre><code ', content)
+        y=re.sub(r'</svg>', '</code></pre>', x)
+        return y
