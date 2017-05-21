@@ -95,6 +95,10 @@ def generate_saver(name, path, taskdep, **options) :
 
     save = options.get('saver'
             , lambda path, content : open(path,'w').write(content))
+    ## 如果是二进制文件，需要调整选项的
+    if name[-3:-1]+name[-1]== 'pdf' : 
+        save = options.get('saver'
+            , lambda path, content : open(path,'wb').write(content))
     def do_save(path, content) :
         save(path, content[flowdep])
 

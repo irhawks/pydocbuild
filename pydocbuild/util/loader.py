@@ -21,6 +21,11 @@ class PyRequest(InternalLoader) :
         # 见<http://liguangming.com/python-requests-ge-encoding-from-headers>
         #r.encoding = r.apparent_encoding
         b = r.content
+
+        ## 如果是二进制数据，提前返回内容
+        if 'application/pdf' in r.headers['Content-Type'] :
+          return b
+        ## 如果是字符串数据，进行编码的归一化
         encoding = chardet.detect(b)['encoding']
         if encoding == 'gb2312' :
           return b.decode('GB18030')
